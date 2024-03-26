@@ -1,7 +1,10 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:hansungcapstone_bugiweather/mainscreen.dart';
 import 'loading.dart';
-
+import 'package:hansungcapstone_bugiweather/NaverMap/screens/loading.dart';
 class Screen extends StatefulWidget {
   const Screen({super.key});
 
@@ -13,7 +16,7 @@ class ScreenState extends State<Screen> {
   int _selectedIndex = 0;
 
   final List<Widget> _widgetOptions = <Widget>[
-    Loading(), MainScreen(), Loading(), MainScreen() , MainScreen()
+    Loading(), MainScreen(), Loading(), LoadingMap() , MainScreen()
   ];
 
   void _onItemTapped(int index) {
@@ -69,4 +72,11 @@ class ScreenState extends State<Screen> {
       ),
     );
   }
+}
+Future<void> _initialize() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NaverMapSdk.instance.initialize(
+      clientId: '***REMOVED_NAVER_CLIENT_ID***',     // 클라이언트 ID 설정
+      onAuthFailed: (e) => log("네이버맵 인증오류 : $e", name: "onAuthFailed")
+  );
 }
