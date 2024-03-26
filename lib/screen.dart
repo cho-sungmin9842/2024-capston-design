@@ -5,6 +5,7 @@ import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:hansungcapstone_bugiweather/mainscreen.dart';
 import 'loading.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/screens/loading.dart';
+import 'package:hansungcapstone_bugiweather/week_weather.dart';
 class Screen extends StatefulWidget {
   const Screen({super.key});
 
@@ -16,7 +17,7 @@ class ScreenState extends State<Screen> {
   int _selectedIndex = 0;
 
   final List<Widget> _widgetOptions = <Widget>[
-    Loading(), MainScreen(), Loading(), LoadingMap() , MainScreen()
+    Loading(), screen2(), Loading(), LoadingMap() , MainScreen()
   ];
 
   void _onItemTapped(int index) {
