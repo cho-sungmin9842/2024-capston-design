@@ -12,18 +12,12 @@ import 'package:hansungcapstone_bugiweather/NaverMap/NaverMapApp.dart';
 
 const apiKey = '***REMOVED_OWM_KEY***';
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> origin/cho
 class LoadingMap extends StatefulWidget {
   @override
   _LoadingState createState() => _LoadingState();
 }
 
 class _LoadingState extends State<LoadingMap> {
-
   double? latitude3;
   double? longitude3;
 
@@ -32,7 +26,6 @@ class _LoadingState extends State<LoadingMap> {
     // TODO: implement initState
     super.initState();
     getLocation();
-
   }
 
   void getLocation() async {
@@ -46,23 +39,32 @@ class _LoadingState extends State<LoadingMap> {
 
     //Network network = Network('https://api.openweathermap.org/data/2.5/weather''?lat=$latitude3&lon=$longitude3&appid=$apiKey&units=metric');
     List<Network> networks = [
-      Network('https://api.openweathermap.org/data/2.5/weather''?lat=37.5978&lon=127.0929&appid=$apiKey&units=metric'), // 중랑구
-      Network('https://api.openweathermap.org/data/2.5/weather''?lat=37.5820&lon=127.0548&appid=$apiKey&units=metric'), // 동대문구
-      Network('https://api.openweathermap.org/data/2.5/weather''?lat=37.6057&lon=127.0176&appid=$apiKey&units=metric'), // 성북구
-      Network('https://api.openweathermap.org/data/2.5/weather''?lat=37.5949&lon=126.9773&appid=$apiKey&units=metric'), // 종로구
-      Network('https://api.openweathermap.org/data/2.5/weather''?lat=37.5778&lon=126.9391&appid=$apiKey&units=metric'), // 서대문구
+      Network('https://api.openweathermap.org/data/2.5/weather'
+          '?lat=37.5978&lon=127.0929&appid=$apiKey&units=metric'),
+      // 중랑구
+      Network('https://api.openweathermap.org/data/2.5/weather'
+          '?lat=37.5820&lon=127.0548&appid=$apiKey&units=metric'),
+      // 동대문구
+      Network('https://api.openweathermap.org/data/2.5/weather'
+          '?lat=37.6057&lon=127.0176&appid=$apiKey&units=metric'),
+      // 성북구
+      Network('https://api.openweathermap.org/data/2.5/weather'
+          '?lat=37.5949&lon=126.9773&appid=$apiKey&units=metric'),
+      // 종로구
+      Network('https://api.openweathermap.org/data/2.5/weather'
+          '?lat=37.5778&lon=126.9391&appid=$apiKey&units=metric'),
+      // 서대문구
     ];
 
     //var weatherData = await network.getJsonData();
-    List<dynamic> weatherDataList = await Future.wait(networks.map((network) => network.getJsonData()).toList());
+    List<dynamic> weatherDataList = await Future.wait(
+        networks.map((network) => network.getJsonData()).toList());
     print(weatherDataList);
     Navigator.push(context, MaterialPageRoute(builder: (context) {
-      return NaverMapApp(parseWeatherData: weatherDataList,);
+      return NaverMapApp(
+        parseWeatherData: weatherDataList,
+      );
     }));
-<<<<<<< HEAD
-    //NaverMapApp(parseWeatherData: weatherDataList,);
-=======
->>>>>>> origin/cho
   }
 
   // void fetchData() async{
@@ -75,50 +77,21 @@ class _LoadingState extends State<LoadingMap> {
     return MaterialApp(
       home: Center(
         child: Scaffold(
-<<<<<<< HEAD
-          /*        appBar: AppBar(
-=======
-        /*        appBar: AppBar(
->>>>>>> origin/cho
-            title: Text('아니'),
-            leading: IconButton(
-              onPressed: () { },
-              icon: Icon(Icons.list),
-            ),
-            backgroundColor: Colors.cyan,
-          ),*/
           body: Center(
             child: ElevatedButton(
               onPressed: (){},
               child: Text('위치 정보를 가져오는 중입니다...'),
             ),
           ),
-<<<<<<< HEAD
-          /*       bottomNavigationBar: BottomAppBar(
-=======
-         /*       bottomNavigationBar: BottomAppBar(
->>>>>>> origin/cho
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.star),
-                  onPressed:(){} ,
-                ),
-                Icon(Icons.add_chart),
-                Icon(Icons.key),
-              ],
-            ),
-          ),*/
         ),
       ),
     );
   }
 }
+
 Future<void> _initialize() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NaverMapSdk.instance.initialize(
-      clientId: '***REMOVED_NAVER_CLIENT_ID***',     // 클라이언트 ID 설정
-      onAuthFailed: (e) => log("네이버맵 인증오류 : $e", name: "onAuthFailed")
-  );
+      clientId: '***REMOVED_NAVER_CLIENT_ID***', // 클라이언트 ID 설정
+      onAuthFailed: (e) => log("네이버맵 인증오류 : $e", name: "onAuthFailed"));
 }
