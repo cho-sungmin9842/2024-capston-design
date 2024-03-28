@@ -12,6 +12,11 @@ import 'package:hansungcapstone_bugiweather/NaverMap/NaverMapApp.dart';
 
 const apiKey = '***REMOVED_OWM_KEY***';
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> origin/cho
 class LoadingMap extends StatefulWidget {
   @override
   _LoadingState createState() => _LoadingState();
@@ -54,7 +59,10 @@ class _LoadingState extends State<LoadingMap> {
     Navigator.push(context, MaterialPageRoute(builder: (context) {
       return NaverMapApp(parseWeatherData: weatherDataList,);
     }));
+<<<<<<< HEAD
     //NaverMapApp(parseWeatherData: weatherDataList,);
+=======
+>>>>>>> origin/cho
   }
 
   // void fetchData() async{
@@ -67,7 +75,11 @@ class _LoadingState extends State<LoadingMap> {
     return MaterialApp(
       home: Center(
         child: Scaffold(
+<<<<<<< HEAD
           /*        appBar: AppBar(
+=======
+        /*        appBar: AppBar(
+>>>>>>> origin/cho
             title: Text('아니'),
             leading: IconButton(
               onPressed: () { },
@@ -81,7 +93,11 @@ class _LoadingState extends State<LoadingMap> {
               child: Text('위치 정보를 가져오는 중입니다...'),
             ),
           ),
+<<<<<<< HEAD
           /*       bottomNavigationBar: BottomAppBar(
+=======
+         /*       bottomNavigationBar: BottomAppBar(
+>>>>>>> origin/cho
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
