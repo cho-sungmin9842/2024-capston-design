@@ -1,9 +1,35 @@
-import 'package:flutter/cupertino.dart';
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:intl/intl.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:http/http.dart' as http;
+import 'NaverMap/mylocation.dart';
 
-class MainScreen extends StatelessWidget {
-  const MainScreen({super.key});
+class TodayWeatherScreen extends StatefulWidget {
+
+  const TodayWeatherScreen({super.key});
+
+  @override
+  State<StatefulWidget> createState() => TodayWeatherState();
+}
+
+class TodayWeatherState extends State<TodayWeatherScreen> {
+
+  int? xCoordinate; // 현재 x좌표
+  int? yCoordinate; // 현재 y좌표
+  double? userLati; // 위도(latitude)
+  double? userLongi; // 경도(longitude)
+  late DateFormat daysFormat; // 요일 한글로
+  String? gu; // 구
+  String? dong; // 동
+
+  @override
+  void initState() {
+    super.initState();
+    initializeDateFormatting();
+    daysFormat = DateFormat('E', 'ko_KR'); //요일 한글 표현
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +58,7 @@ class MainScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "3월 25일 (월)",
+                      "${DateFormat('yyy년 M월 d일 ').format(DateTime.now())}(${daysFormat.format(DateTime.now())})",
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
@@ -47,7 +73,7 @@ class MainScreen extends StatelessWidget {
                       width: 16,
                     ),
                     Text(
-                      "강남구 논현동",
+                      '$gu $dong',
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
@@ -85,7 +111,8 @@ class MainScreen extends StatelessWidget {
                       width: 16,
                     ),
                     Text(
-                      "15°C",
+                      "12°C",
+                      // '$currentT1H°C',
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
@@ -119,7 +146,7 @@ class MainScreen extends StatelessWidget {
                           width: 3,
                         ),
                         Text(
-                          "10°C",
+                          '10°C',
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.clip,
                           style: TextStyle(
@@ -147,7 +174,7 @@ class MainScreen extends StatelessWidget {
                           width: 3,
                         ),
                         Text(
-                          "20°C",
+                          "10°C",
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.clip,
                           style: TextStyle(
@@ -171,7 +198,8 @@ class MainScreen extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          "3월 25일 14:30",
+                          DateFormat('M월 d일 ').format(DateTime.now()) +
+                              DateFormat("h:mm a").format(DateTime.now()),
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.clip,
                           style: TextStyle(
@@ -184,7 +212,7 @@ class MainScreen extends StatelessWidget {
                         SizedBox(
                           width: 5,
                         ),
-                        Icon(Icons.update)
+                        // Icon(Icons.update)
                       ],
                     )
                   ],
@@ -194,22 +222,22 @@ class MainScreen extends StatelessWidget {
             Flexible(
               flex: 10,
               child: Container(
-                  // color: Color(0xffbfd5ff),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: [
-                      SizedBox(width: 10),
-                      ListViewItem(),
-                      SizedBox(width: 20),
-                      ListViewItem(),
-                      SizedBox(width: 20),
-                      ListViewItem(),
-                      SizedBox(width: 20),
-                      ListViewItem(),
-                      SizedBox(width: 20),
-                    ],
-                  )
+                // color: Color(0xffbfd5ff),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(width: 10),
+                    ListViewItem(),
+                    SizedBox(width: 20),
+                    ListViewItem(),
+                    SizedBox(width: 20),
+                    ListViewItem(),
+                    SizedBox(width: 20),
+                    ListViewItem(),
+                    SizedBox(width: 20),
+                  ],
+                ),
                 // child : ListView(
                 //   padding:const EdgeInsets.all(12),
                 //   scrollDirection: Axis.horizontal,
@@ -232,8 +260,7 @@ class MainScreen extends StatelessWidget {
             ),
           ],
         ),
-      )
-      ,
+      ),
     );
   }
 }

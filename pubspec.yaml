@@ -31,11 +31,21 @@ dependencies:
   flutter:
     sdk: flutter
 
+  # The following adds the Cupertino Icons font to your application.
+  # Use with the CupertinoIcons class for iOS style icons.
+  flutter_naver_map: ^1.2.1
+  geolocator: ^11.0.0
+  permission_handler: ^11.3.0
+  http: ^1.2.1
+  fluttertoast: ^8.2.4
+  intl: ^0.17.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.6
   flutter_spinkit: ^5.2.0
+  flutter_svg: ^2.0.10+1
+  flutter_dotenv: ^5.0.2
 
 dev_dependencies:
   flutter_test:
@@ -61,6 +71,7 @@ flutter:
 
   assets:
     - assets/
+    - .env
 
   # To add assets to your application, add an assets section, like this:
   # assets:
