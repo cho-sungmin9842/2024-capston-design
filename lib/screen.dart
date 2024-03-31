@@ -5,6 +5,7 @@ import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:hansungcapstone_bugiweather/favorites.dart';
 import 'package:hansungcapstone_bugiweather/todayweatherscreen.dart';
 import 'package:hansungcapstone_bugiweather/setting.dart';
+import 'dust_screen.dart';
 import 'loading.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/screens/loading.dart';
 import 'package:hansungcapstone_bugiweather/week_weather.dart';
@@ -69,7 +70,7 @@ class HomeScreenState extends State<HomeScreen> {
     TodayWeatherScreen(),
     LoadingMap(),
     Favorites(),
-    Favorites(),
+    dustScreen(),
   ];
 
   void _onItemTapped(int index) {

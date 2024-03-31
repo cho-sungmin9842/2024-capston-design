@@ -30,14 +30,14 @@ class Home extends StatelessWidget {
         elevation: 0.0,
       ),
       body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF74D5FF),
-              Color(0xFFBFD5FF),
-            ],
+        margin: EdgeInsets.zero,
+        padding: EdgeInsets.zero,
+        width: MediaQuery.of(context).size.width,
+        height: MediaQuery.of(context).size.height,
+        decoration: const BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage("assets/backimg.png"),
+            fit: BoxFit.cover,
           ),
         ),
         child: Column(
