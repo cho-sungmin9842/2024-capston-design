@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:hansungcapstone_bugiweather/screen.dart';
 
-import 'apploading.dart';
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: ".env");
@@ -11,14 +9,13 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
-
   const MyApp({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AppLoading(),
+      home: HomeScreen(),
     );
   }
 }

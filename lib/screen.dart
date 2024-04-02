@@ -1,42 +1,23 @@
+import 'dart:convert';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:hansungcapstone_bugiweather/favorites.dart';
 import 'package:hansungcapstone_bugiweather/todayweatherscreen.dart';
 import 'package:hansungcapstone_bugiweather/setting.dart';
+import 'package:intl/intl.dart';
+import 'NaverMap/mylocation.dart';
+import 'dust.dart';
+import 'hstodayweatherscreen.dart';
 import 'loading.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/screens/loading.dart';
 import 'package:hansungcapstone_bugiweather/week_weather.dart';
+import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
 
-  const HomeScreen(
-      {super.key,
-      this.parse2amData,
-      this.parseShortTermWeatherData,
-      this.parseCurrentWeatherData,
-      this.parseSuperShortWeatherData,
-      this.parseAirConditionData,
-      this.parseAddrData});
-
-  // 오늘 단기 예보 json
-  final dynamic parse2amData;
-
-  // 단기 예보 json
-  final dynamic parseShortTermWeatherData;
-
-  // 초단기 실황 json
-  final dynamic parseCurrentWeatherData;
-
-  // 초단기 예보 json
-  final dynamic parseSuperShortWeatherData;
-
-  // 측정소별 실시간 대기오염 정보 json
-  final dynamic parseAirConditionData;
-
-  // 현재 위치 정보 json
-  final dynamic parseAddrData;
+  const HomeScreen({super.key,});
 
   @override
   State<StatefulWidget> createState() => HomeScreenState();
@@ -45,32 +26,16 @@ class HomeScreen extends StatefulWidget {
 class HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
-  // 오늘 단기 예보 json
-  late final dynamic parse2amData;
+  late List<Widget> _widgetOptions;
 
-  // 단기 예보 json
-  late final dynamic parseShortTermWeatherData;
-
-  // 초단기 실황 json
-  late final dynamic parseCurrentWeatherData;
-
-  // 초단기 예보 json
-  late final dynamic parseSuperShortWeatherData;
-
-  // 측정소별 실시간 대기오염 정보 json
-  late final dynamic parseAirConditionData;
-
-  // 현재 위치 정보 json
-  late final dynamic parseAddrData;
-
-  final List<Widget> _widgetOptions = <Widget>[
-    TodayWeatherScreen(),
-    WeekWeather(),
-    TodayWeatherScreen(),
-    LoadingMap(),
-    Favorites(),
-    Favorites(),
-  ];
+  // = <Widget>[
+  //   TodayWeatherScreen(),
+  //   WeekWeather(),
+  //   TodayWeatherScreen(),
+  //   LoadingMap(),
+  //   Favorites(),
+  //   Favorites(),
+  // ];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -81,36 +46,21 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-    updateData(
-      widget.parse2amData,
-      widget.parseShortTermWeatherData,
-      widget.parseCurrentWeatherData,
-      widget.parseSuperShortWeatherData,
-      widget.parseAirConditionData,
-      widget.parseAddrData,
-    );
-  }
 
-  void updateData(
-    dynamic today2amData,
-    dynamic shortTermWeatherData,
-    dynamic currentWeatherData,
-    dynamic superShortWeatherData,
-    dynamic airConditionData,
-    dynamic addrData,
-  ) {
-    parse2amData = today2amData;
-    parseShortTermWeatherData = shortTermWeatherData;
-    parseCurrentWeatherData = currentWeatherData;
-    parseSuperShortWeatherData = superShortWeatherData;
-    parseAirConditionData = airConditionData;
-    parseAddrData = addrData;
+    _widgetOptions = <Widget>[
+      TodayWeatherScreen(),
+      WeekWeather(),
+      HSTodayWeatherScreen(),
+      LoadingMap(),
+      Favorites(),
+      DustScreen(),
+    ];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Color(0xffffffff),
+      backgroundColor: const Color(0xffffffff),
       appBar: AppBar(
         elevation: 4,
         centerTitle: true,
@@ -121,7 +71,7 @@ class HomeScreenState extends State<HomeScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (BuildContext context) => Setting(),
+                builder: (BuildContext context) => const Setting(),
               ),
             );
           },
@@ -130,26 +80,26 @@ class HomeScreenState extends State<HomeScreen> {
       ),
       bottomNavigationBar: BottomNavigationBar(
         items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: '홈',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month),
             label: '단기 예보',
           ),
           BottomNavigationBarItem(
               icon: Image.asset("assets/bugi.png", width: 24, height: 24),
               label: "한성대 날씨"),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.map),
             label: '전국 날씨',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.pin_drop_outlined),
             label: '즐겨찾기',
           ),
-          BottomNavigationBarItem(
+          const BottomNavigationBarItem(
             icon: Icon(Icons.cloud),
             label: '대기질 정보',
           ),

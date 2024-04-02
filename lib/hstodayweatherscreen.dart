@@ -8,17 +8,15 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:http/http.dart' as http;
 import 'NaverMap/mylocation.dart';
 
-class TodayWeatherScreen extends StatefulWidget {
+class HSTodayWeatherScreen extends StatefulWidget {
 
-  const TodayWeatherScreen({
-    super.key,
-  });
+  const HSTodayWeatherScreen({super.key,});
 
   @override
-  State<StatefulWidget> createState() => TodayWeatherState();
+  State<StatefulWidget> createState() => HSTodayWeatherState();
 }
 
-class TodayWeatherState extends State<TodayWeatherScreen> {
+class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
   late DateFormat daysFormat; // 요일 한글로
 
   @override
