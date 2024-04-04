@@ -1,18 +1,14 @@
 import 'dart:developer';
-
 import 'package:flutter_naver_map/flutter_naver_map.dart';
-import 'package:hansungcapstone_bugiweather/NaverMap/main.dart';
-import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/mylocation.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/network.dart';
-import 'package:hansungcapstone_bugiweather/NaverMap/main.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/NaverMapApp.dart';
 
 const apiKey = '***REMOVED_OWM_KEY***';
 
 class LoadingMap extends StatefulWidget {
+
   @override
   _LoadingState createState() => _LoadingState();
 }
@@ -24,7 +20,6 @@ class _LoadingState extends State<LoadingMap> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getLocation();
 
@@ -88,7 +83,6 @@ class _LoadingState extends State<LoadingMap> {
       Network('https://api.openweathermap.org/data/2.5/weather?q=Gimcheon&appid=$apiKey&units=metric'), // 김천41
       Network('https://api.openweathermap.org/data/2.5/weather?q=Pyeongtaek&appid=$apiKey&units=metric'), // 평택42
 
-
     ];
 
     //var weatherData = await network.getJsonData();
@@ -112,33 +106,12 @@ class _LoadingState extends State<LoadingMap> {
     return MaterialApp(
       home: Center(
         child: Scaffold(
-          /*        appBar: AppBar(
-            title: Text('아니'),
-            leading: IconButton(
-              onPressed: () { },
-              icon: Icon(Icons.list),
-            ),
-            backgroundColor: Colors.cyan,
-          ),*/
           body: Center(
             child: ElevatedButton(
               onPressed: (){},
               child: Text('위치 정보를 가져오는 중입니다...'),
             ),
           ),
-          /*       bottomNavigationBar: BottomAppBar(
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                IconButton(
-                  icon: Icon(Icons.star),
-                  onPressed:(){} ,
-                ),
-                Icon(Icons.add_chart),
-                Icon(Icons.key),
-              ],
-            ),
-          ),*/
         ),
       ),
     );

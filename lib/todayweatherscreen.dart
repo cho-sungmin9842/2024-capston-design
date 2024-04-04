@@ -9,9 +9,21 @@ import 'package:http/http.dart' as http;
 import 'NaverMap/mylocation.dart';
 
 class TodayWeatherScreen extends StatefulWidget {
+  final dynamic addrData;
+  final dynamic today2amData;
+  final dynamic currentWeatherData;
+  final String todayTMN2;
+  final String todayTMX2;
+  final String skyState;
 
   const TodayWeatherScreen({
     super.key,
+    this.addrData,
+    this.today2amData,
+    this.currentWeatherData,
+    required this.todayTMN2,
+    required this.todayTMX2,
+    required this.skyState,
   });
 
   @override
@@ -50,7 +62,6 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
             Flexible(
               flex: 12,
               child: Container(
-                // color: Color(0xff74d5ff),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -70,7 +81,11 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                       width: 16,
                     ),
                     Text(
-                      "강남구 논현동",
+                      widget.addrData['documents'][0]['address']
+                              ['region_2depth_name'] +
+                          " " +
+                          widget.addrData['documents'][0]['address']
+                              ['region_3depth_name'],
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
@@ -84,8 +99,29 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                       height: 16,
                       width: 16,
                     ),
-                    Icon(
+                    (widget.skyState == "맑음") ? Icon(
                       Icons.sunny,
+                      size: 80,
+                    ) : (widget.skyState == "구름많음") ? Icon(
+                      Icons.wb_cloudy,
+                      size: 80,
+                    ): (widget.skyState == "흐림") ? Icon(
+                      Icons.wb_cloudy,
+                      size: 80,
+                    ) : (widget.skyState == "비") ? Icon(
+                      Icons.cloudy_snowing,
+                      size: 80,
+                    ) : (widget.skyState == "눈") ? Icon(
+                      Icons.cloudy_snowing,
+                      size: 80,
+                    ) : (widget.skyState == "빗방울") ? Icon(
+                      Icons.cloudy_snowing,
+                      size: 80,
+                    ) : (widget.skyState == "빗방울눈날림") ? Icon(
+                      Icons.cloudy_snowing,
+                      size: 80,
+                    ) :  Icon(
+                      Icons.cloudy_snowing,
                       size: 80,
                     ),
                     SizedBox(
@@ -93,7 +129,7 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                       width: 16,
                     ),
                     Text(
-                      "맑음",
+                      widget.skyState,
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
@@ -108,8 +144,7 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                       width: 16,
                     ),
                     Text(
-                      "12°C",
-                      // "${widget.currentWeatherData['response']['body']['items']['item'][3]['obsrValue']}°C",
+                      "${widget.currentWeatherData['response']['body']['items']['item'][3]['obsrValue']}°C",
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
@@ -143,8 +178,7 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                           width: 3,
                         ),
                         Text(
-                          '10°C',
-                          // "${widget.todayTMN2}°C",
+                          "${widget.todayTMN2}°C",
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.clip,
                           style: TextStyle(
@@ -172,8 +206,7 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                           width: 3,
                         ),
                         Text(
-                          "10°C",
-                          // "${widget.todayTMX2}°C",
+                          "${widget.todayTMX2}°C",
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.clip,
                           style: TextStyle(
@@ -226,13 +259,13 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     SizedBox(width: 10),
-                    ListViewItem(),
+                    getListViewItem(),
                     SizedBox(width: 20),
-                    ListViewItem(),
+                    getListViewItem(),
                     SizedBox(width: 20),
-                    ListViewItem(),
+                    getListViewItem(),
                     SizedBox(width: 20),
-                    ListViewItem(),
+                    getListViewItem(),
                     SizedBox(width: 20),
                   ],
                 ),
@@ -262,7 +295,7 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
   }
 }
 
-Widget ListViewItem() {
+Widget getListViewItem() {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
