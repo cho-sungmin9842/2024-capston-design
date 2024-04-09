@@ -23,9 +23,14 @@ class _AppLoadingState extends State<AppLoading> {
   // 초단기 실황
   String? currentBaseTime;
   String? currentBaseDate;
+
   // 초단기 예보
   String? sswBaseTime;
   String? sswBaseDate;
+
+  //
+  var baseDate;
+  var baseTime;
 
   @override
   void initState() {
@@ -46,6 +51,16 @@ class _AppLoadingState extends State<AppLoading> {
     var userLati = userLocation.latitude2;
     var userLongi = userLocation.longitude2;
 
+    // 단기예보
+    var baseDate_2am;
+    var baseTime_2am;
+
+    print("xCoordinate=$xCoordinate");
+    print("yCoordinate=$yCoordinate");
+    print("현재 날짜 및 시간=${DateTime.now()}");
+    print("지금은 몇 시 = ${DateTime.now().hour}");
+    print("지금은 몇 분 = ${DateTime.now().minute}");
+
     //카카오맵 역지오코딩
     var kakaoGeoUrl = Uri.parse(
         'https://dapi.kakao.com/v2/local/geo/coord2address.json?x=$userLongi&y=$userLati&input_coord=WGS84');
@@ -55,9 +70,7 @@ class _AppLoadingState extends State<AppLoading> {
     String addr = kakaoGeo.body;
     // 응답받은 현재 위치 정보를 json 형태로 변환
     var addrData = jsonDecode(addr);
-    // 단기예보
-    var baseDate_2am;
-    var baseTime_2am;
+
     // 지금이 2시 전이거나 2시 10분 전이라면 baseDate_2am은 어제날짜, baseTime_2am은 2300
     if (DateTime.now().hour < 2 ||
         DateTime.now().hour == 2 && DateTime.now().minute < 10) {
@@ -69,18 +82,33 @@ class _AppLoadingState extends State<AppLoading> {
       baseDate_2am = getSystemTime();
       baseTime_2am = "0200";
     }
+    print("baseDate_2am=$baseDate_2am");
+    print("baseTime_2am=$baseTime_2am");
+
+    setCurrentBase();
+
+    print("baseDate=${baseDate}");
+    print("baseTime=${baseTime}");
+
     // 단기 예보(오늘 최저 기온)
     String today2am =
         'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=$apiKey&numOfRows=1000&pageNo=1&base_date=$baseDate_2am&base_time=$baseTime_2am&nx=$xCoordinate&ny=$yCoordinate&dataType=JSON';
 
     currentWeatherDate();
+    print("currentBaseDate=${currentBaseDate}");
+    print("currentBaseTime=${currentBaseTime}");
     // 현재 날씨(초단기 실황)
     String currentWeather =
         'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=$apiKey&numOfRows=10&pageNo=1&base_date=$currentBaseDate&base_time=$currentBaseTime&nx=$xCoordinate&ny=$yCoordinate&dataType=JSON';
+
     superShortWeatherDate();
+    print("sswBaseDate=$sswBaseDate");
+    print("sswBaseTime=$sswBaseTime");
     // 초단기 예보
-    String superShortWeather = 'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=$apiKey&numOfRows=60&pageNo=1&base_date=$sswBaseDate&base_time=$sswBaseTime&nx=$xCoordinate&ny=$yCoordinate&dataType=JSON';
-    HttpNetwork network = HttpNetwork(today2am, "", currentWeather, superShortWeather, "");
+    String superShortWeather =
+        'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=$apiKey&numOfRows=60&pageNo=1&base_date=$sswBaseDate&base_time=$sswBaseTime&nx=$xCoordinate&ny=$yCoordinate&dataType=JSON';
+    HttpNetwork network =
+        HttpNetwork(today2am, "", currentWeather, superShortWeather, "");
 
     // 오늘 최저 기온 json 응답 데이터
     var today2amData = await network.getToday2amData();
@@ -88,6 +116,15 @@ class _AppLoadingState extends State<AppLoading> {
     var currentWeatherData = await network.getCurrentWeatherData();
     // 초단기 예보 json 응답 데이터
     var superShortWeatherData = await network.getSuperShortWeatherData();
+
+    // 지금 시간으로부터의 단기예보
+    String currentToday =
+        'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=$apiKey&numOfRows=1000&pageNo=1&base_date=$baseDate&base_time=$baseTime&nx=$xCoordinate&ny=$yCoordinate&dataType=JSON';
+
+    network.setUrl(currentToday, "", "", "", "");
+
+    // 금일 현재 시간부로부터 단기 예보 데이터
+    var currenttodayData = await network.getToday2amData();
 
     await userLocation.setMyCurrentLocation(
         127.01024023796833, 37.58253453120409);
@@ -119,8 +156,9 @@ class _AppLoadingState extends State<AppLoading> {
         'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=$apiKey&numOfRows=10&pageNo=1&base_date=$currentBaseDate&base_time=$currentBaseTime&nx=$xCoordinate&ny=$yCoordinate&dataType=JSON';
     superShortWeatherDate();
     // 초단기 예보
-    String hssuperShortWeather = 'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=$apiKey&numOfRows=60&pageNo=1&base_date=$sswBaseDate&base_time=$sswBaseTime&nx=$xCoordinate&ny=$yCoordinate&dataType=JSON';
-    network.setUrl(today2am, "", currentWeather, superShortWeather, "");
+    String hssuperShortWeather =
+        'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=$apiKey&numOfRows=60&pageNo=1&base_date=$sswBaseDate&base_time=$sswBaseTime&nx=$xCoordinate&ny=$yCoordinate&dataType=JSON';
+    network.setUrl(hstoday2am, "", hscurrentWeather, hssuperShortWeather, "");
 
     // 오늘 최저 기온 json 응답 데이터
     var hstoday2amData = await network.getToday2amData();
@@ -129,34 +167,49 @@ class _AppLoadingState extends State<AppLoading> {
     // 초단기 예보 json 응답 데이터
     var hssuperShortWeatherData = await network.getSuperShortWeatherData();
 
-    Navigator.push(context, MaterialPageRoute(builder: (context) {
+    // 한성대에서 지금 시간으로부터의 단기예보
+    String hscurrentToday =
+        'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=$apiKey&numOfRows=1000&pageNo=1&base_date=$baseDate&base_time=$baseTime&nx=$xCoordinate&ny=$yCoordinate&dataType=JSON';
+
+    network.setUrl(hscurrentToday, "", "", "", "");
+
+    // 한성대에서 금일 현재 시간부로부터 단기 예보 데이터
+    var currenthstodayData = await network.getToday2amData();
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) {
           return HomeScreen(
             addrData: addrData,
             hsaddrData: hsaddrData,
             today2amData: today2amData,
-            hstoday2amData : hstoday2amData,
+            hstoday2amData: hstoday2amData,
+            currenttodayData: currenttodayData,
+            currenthstodayData: currenthstodayData,
             currentWeatherData: currentWeatherData,
-            hscurrentWeatherData : hscurrentWeatherData,
+            hscurrentWeatherData: hscurrentWeatherData,
             superShortWeatherData: superShortWeatherData,
-            hssuperShortWeatherData : hssuperShortWeatherData,
+            hssuperShortWeatherData: hssuperShortWeatherData,
           );
         },
       ),
     );
   }
+
   // 초단기 예보
   void superShortWeatherDate() {
     // 45분 이전이면 현재 시보다 1시간 전 `base_time`을 요청한다.
     if (DateTime.now().minute <= 45) {
       // 단. 00:45분 이전이라면 `base_date`는 전날이고 `base_time`은 2330이다.
       if (DateTime.now().hour == 0) {
-        sswBaseDate =
-            DateFormat('yyyyMMdd').format(DateTime.now().subtract(const Duration(days: 1)));
+        sswBaseDate = DateFormat('yyyyMMdd')
+            .format(DateTime.now().subtract(const Duration(days: 1)));
         sswBaseTime = '2330';
       } else {
         sswBaseDate = DateFormat('yyyyMMdd').format(DateTime.now());
-        sswBaseTime =
-            DateFormat('HH30').format(DateTime.now().subtract(const Duration(hours: 1)));
+        sswBaseTime = DateFormat('HH30')
+            .format(DateTime.now().subtract(const Duration(hours: 1)));
       }
     }
     //45분 이후면 현재 시와 같은 `base_time`을 요청한다.
@@ -166,6 +219,7 @@ class _AppLoadingState extends State<AppLoading> {
       sswBaseTime = DateFormat('HH30').format(DateTime.now());
     }
   }
+
   // 초단기 실황
   void currentWeatherDate() {
     // 지금이 40분 이전이면 현재 시보다 1시간 전 base_time을 요청한다.
@@ -187,6 +241,37 @@ class _AppLoadingState extends State<AppLoading> {
     else {
       currentBaseDate = DateFormat('yyyyMMdd').format(DateTime.now());
       currentBaseTime = DateFormat('HH00').format(DateTime.now());
+    }
+  }
+
+  void setCurrentBase() {
+    var now = DateTime.now();
+    if (now.hour < 2 || now.hour == 2 && now.minute <= 30) {
+      baseDate =
+          DateFormat('yyyyMMdd').format(now.subtract(const Duration(days: 1)));
+      baseTime = "2300";
+    } else if (now.hour < 5 || now.hour == 5 && now.minute <= 30) {
+      baseDate = getSystemTime();
+      baseTime = "0200";
+    } else if (now.hour < 8 || now.hour == 8 && now.minute <= 30) {
+      baseDate = getSystemTime();
+      baseTime = "0500";
+    } else if (now.hour < 11 || now.hour == 11 && now.minute <= 30) {
+      baseDate = getSystemTime();
+      baseTime = "0800";
+    } else if (now.hour < 14 || now.hour == 14 && now.minute <= 30) {
+      baseDate = getSystemTime();
+      baseTime = "1100";
+    } else if (now.hour < 17 || now.hour == 17 && now.minute <= 30) {
+      baseDate = getSystemTime();
+      baseTime = "1400";
+    } else if (now.hour < 20 || now.hour == 20 && now.minute <= 30) {
+      baseDate = getSystemTime();
+      baseTime = "1700";
+    } else {
+      // if (now.hour < 23 || now.hour == 23 && now.minute <= 30) {
+      baseDate = getSystemTime();
+      baseTime = "2300";
     }
   }
 
@@ -219,7 +304,9 @@ class _AppLoadingState extends State<AppLoading> {
             Text(
               '위치 정보 업데이트 중',
               style: TextStyle(
-                  fontFamily: 'tmon', fontSize: 20.0, color: Colors.black87),
+                fontSize: 20.0,
+                color: Colors.black87,
+              ),
             )
           ],
         ),

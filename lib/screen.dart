@@ -28,6 +28,8 @@ class HomeScreen extends StatefulWidget {
   final dynamic hstoday2amData;
   final dynamic hscurrentWeatherData;
   final dynamic hssuperShortWeatherData;
+  final dynamic currenttodayData;
+  final dynamic currenthstodayData;
 
   const HomeScreen({
     super.key,
@@ -35,6 +37,8 @@ class HomeScreen extends StatefulWidget {
     this.hsaddrData,
     this.today2amData,
     this.hstoday2amData,
+    this.currenttodayData,
+    this.currenthstodayData,
     this.currentWeatherData,
     this.hscurrentWeatherData,
     this.superShortWeatherData,
@@ -73,20 +77,12 @@ class HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
-
     getAirConditionData();
 
     _widgetOptions = <Widget>[
       getTodayWeatherScreen(),
       WeekWeather(),
-      HSTodayWeatherScreen(
-        addrData: widget.hsaddrData,
-        today2amData: widget.hstoday2amData,
-        currentWeatherData: widget.hscurrentWeatherData,
-        todayTMN2: todayTMN2,
-        todayTMX2: todayTMX2,
-        skyState: "맑음",
-      ),
+      getHSTodayWeatherScreen(),
       LoadingMap(),
       Favorites(),
     ];
@@ -126,7 +122,7 @@ class HomeScreenState extends State<HomeScreen> {
         }
       }
     }
-    var ptyCode, skyCode, skyState;
+    var skyCode, skyState;
     var timeHH = DateFormat('HH00')
         .format(DateTime.now().add(const Duration(minutes: 30))); // 30분후
     // 초단기 예보
@@ -138,7 +134,6 @@ class HomeScreenState extends State<HomeScreen> {
       // PTY 코드값
       if (parsed_json['category'] == 'PTY' &&
           parsed_json['fcstTime'] == timeHH) {
-        ptyCode = parsed_json['fcstValue'];
       }
       // SKY 코드값
       if (parsed_json['category'] == 'SKY' &&
@@ -146,41 +141,23 @@ class HomeScreenState extends State<HomeScreen> {
         skyCode = parsed_json['fcstValue'];
       }
     }
-    if (ptyCode == '0') {
-      if (skyCode == '1') {
-        //맑음
-        skyState = '맑음';
-      } else if (skyCode == '3') {
-        //구름 많음
-        skyState = '구름 많음';
-      } else if (skyCode == '4') {
-        // 흐림
-        skyState = '흐림';
-      }
-    } else if (ptyCode == '1') {
-      // 비
-      skyState = '비';
-    } else if (ptyCode == '2') {
-      // 비/눈
-      skyState = '진눈개비';
-    } else if (ptyCode == '3') {
-      // 눈
-      skyState = '눈';
-    } else if (ptyCode == '5') {
-      // 빗방울
-      skyState = '빗방울';
-    } else if (ptyCode == '6') {
-      // 빗방울눈날림
-      skyState = '빗방울눈날림';
-    } else if (ptyCode == '7') {
-      // 눈날림
-      skyState = '눈날림';
-    } else {
-      skyState = '하늘 상태 정보 없음';
+    // 맑음
+    if (skyCode == '1') {
+      skyState = '맑음';
     }
+    // 구름 많음
+    else if (skyCode == '3') {
+      skyState = '구름 많음';
+    }
+    // 흐림
+    else if (skyCode == '4') {
+      skyState = '흐림';
+    }
+
     return TodayWeatherScreen(
       addrData: widget.addrData,
       today2amData: widget.today2amData,
+      currenttodayData: widget.currenttodayData,
       currentWeatherData: widget.currentWeatherData,
       todayTMN2: todayTMN2,
       todayTMX2: todayTMX2,
@@ -191,11 +168,11 @@ class HomeScreenState extends State<HomeScreen> {
   Widget getHSTodayWeatherScreen() {
     // 2시 데이터
     int totalCount =
-    widget.hstoday2amData['response']['body']['totalCount']; // 데이터의 총 갯수
+        widget.hstoday2amData['response']['body']['totalCount']; // 데이터의 총 갯수
     for (int i = 0; i < totalCount; i++) {
       // 데이터 전체를 돌면서 원하는 데이터 추출
       var parsed_json =
-      widget.hstoday2amData['response']['body']['items']['item'][i];
+          widget.hstoday2amData['response']['body']['items']['item'][i];
       // 2시 이전, 23시 데이터
       if (DateTime.now().hour < 2) {
         // 당일 최저 기온
@@ -222,61 +199,37 @@ class HomeScreenState extends State<HomeScreen> {
         }
       }
     }
-    var ptyCode, skyCode, skyState;
+    var skyCode, skyState;
     var timeHH = DateFormat('HH00')
         .format(DateTime.now().add(const Duration(minutes: 30))); // 30분후
     // 초단기 예보
     int totalCount3 =
-    widget.hssuperShortWeatherData['response']['body']['totalCount'];
+        widget.hssuperShortWeatherData['response']['body']['totalCount'];
     for (int i = 0; i < totalCount3; i++) {
       var parsed_json =
-      widget.superShortWeatherData['response']['body']['items']['item'][i];
-      // PTY 코드값
-      if (parsed_json['category'] == 'PTY' &&
-          parsed_json['fcstTime'] == timeHH) {
-        ptyCode = parsed_json['fcstValue'];
-      }
+          widget.superShortWeatherData['response']['body']['items']['item'][i];
       // SKY 코드값
       if (parsed_json['category'] == 'SKY' &&
           parsed_json['fcstTime'] == timeHH) {
         skyCode = parsed_json['fcstValue'];
       }
     }
-    if (ptyCode == '0') {
-      if (skyCode == '1') {
-        //맑음
-        skyState = '맑음';
-      } else if (skyCode == '3') {
-        //구름 많음
-        skyState = '구름 많음';
-      } else if (skyCode == '4') {
-        // 흐림
-        skyState = '흐림';
-      }
-    } else if (ptyCode == '1') {
-      // 비
-      skyState = '비';
-    } else if (ptyCode == '2') {
-      // 비/눈
-      skyState = '진눈개비';
-    } else if (ptyCode == '3') {
-      // 눈
-      skyState = '눈';
-    } else if (ptyCode == '5') {
-      // 빗방울
-      skyState = '빗방울';
-    } else if (ptyCode == '6') {
-      // 빗방울눈날림
-      skyState = '빗방울눈날림';
-    } else if (ptyCode == '7') {
-      // 눈날림
-      skyState = '눈날림';
-    } else {
-      skyState = '하늘 상태 정보 없음';
+    // 맑음
+    if (skyCode == '1') {
+      skyState = '맑음';
+    }
+    // 구름 많음
+    else if (skyCode == '3') {
+      skyState = '구름 많음';
+    }
+    // 흐림
+    else if (skyCode == '4') {
+      skyState = '흐림';
     }
     return HSTodayWeatherScreen(
       addrData: widget.hsaddrData,
       today2amData: widget.hstoday2amData,
+      currenthstodayData: widget.currenthstodayData,
       currentWeatherData: widget.hscurrentWeatherData,
       todayTMN2: hstodayTMN2,
       todayTMX2: hstodayTMX2,

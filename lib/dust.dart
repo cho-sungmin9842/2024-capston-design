@@ -68,8 +68,8 @@ class _DustScreenState extends State<DustScreen> {
                     double.parse(widget
                         .airConditionData['response']
                     ['body']['items'][0]['pm25Value']) <=
-                        75.0) ? const Icon(Icons.mood, size: 50) : const Icon(
-                    Icons.mood, size: 50),
+                        75.0) ? const Icon(Icons.mood_bad, size: 50) : const Icon(
+                    Icons.mood_bad, size: 50),
                 (double.parse(widget
                     .airConditionData['response']
                 ['body']['items'][0]['pm25Value']) >=
