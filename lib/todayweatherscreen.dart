@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hansungcapstone_bugiweather/httpnetwork.dart';
+import 'package:hansungcapstone_bugiweather/weather_icon_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:http/http.dart' as http;
@@ -109,11 +110,11 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                         )
                       : (widget.skyState == "구름 많음")
                           ? Icon(
-                              Icons.wb_cloudy_rounded,
+                              WeatherIcon.clouds,
                               size: 80,
                             )
                           : Icon(
-                              Icons.wb_cloudy,
+                              WeatherIcon.cloud_sun,
                               size: 80,
                             ),
                   SizedBox(
@@ -361,11 +362,11 @@ List<Widget> getListViewItem(dynamic currenttodayData) {
                     )
                   : (sky == "구름 많음")
                       ? Icon(
-                          Icons.wb_cloudy_rounded,
+                          WeatherIcon.clouds,
                           size: 60,
                         )
                       : Icon(
-                          Icons.wb_cloudy,
+                          WeatherIcon.cloud_sun,
                           size: 60,
                         ),
               const SizedBox(

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:hansungcapstone_bugiweather/httpnetwork.dart';
+import 'package:hansungcapstone_bugiweather/weather_icon_icons.dart';
 import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:http/http.dart' as http;
@@ -83,10 +84,10 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                     ),
                     Text(
                       widget.addrData['documents'][0]['address']
-                      ['region_2depth_name'] +
+                              ['region_2depth_name'] +
                           " " +
                           widget.addrData['documents'][0]['address']
-                          ['region_3depth_name'],
+                              ['region_3depth_name'],
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
@@ -102,17 +103,19 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                     // 하늘 상태 정보 아이콘
                     (widget.skyState == "맑음")
                         ? Icon(
-                      Icons.sunny,
-                      color: Colors.orange,
-                      size: 80,
-                    ) : (widget.skyState == "구름 많음")
-                        ? Icon(
-                      Icons.wb_cloudy_rounded,
-                      size: 80,
-                    ) : Icon(
-                      Icons.wb_cloudy,
-                      size: 80,
-                    ),
+                            Icons.sunny,
+                            color: Colors.orange,
+                            size: 80,
+                          )
+                        : (widget.skyState == "구름 많음")
+                            ? Icon(
+                                WeatherIcon.clouds,
+                                size: 80,
+                              )
+                            : Icon(
+                                WeatherIcon.cloud_sun,
+                                size: 80,
+                              ),
                     SizedBox(
                       height: 8,
                     ),
@@ -132,28 +135,31 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                       height: 3,
                     ),
                     // 시간당 강수량
-                    (widget.currentWeatherData['response']['body']['items']['item'][2]['obsrValue'] == "0")
+                    (widget.currentWeatherData['response']['body']['items']
+                                ['item'][2]['obsrValue'] ==
+                            "0")
                         ? const Text(
-                      "강수없음",
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.clip,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 18,
-                        color: Color(0xff000000),
-                      ),
-                    ):  Text(
-                      "${widget.currentWeatherData['response']['body']['items']['item'][2]['obsrValue']}mm",
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.clip,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 18,
-                        color: Color(0xff000000),
-                      ),
-                    ),
+                            "강수없음",
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.clip,
+                            style: TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 18,
+                              color: Color(0xff000000),
+                            ),
+                          )
+                        : Text(
+                            "${widget.currentWeatherData['response']['body']['items']['item'][2]['obsrValue']}mm",
+                            textAlign: TextAlign.start,
+                            overflow: TextOverflow.clip,
+                            style: const TextStyle(
+                              fontWeight: FontWeight.w400,
+                              fontStyle: FontStyle.normal,
+                              fontSize: 18,
+                              color: Color(0xff000000),
+                            ),
+                          ),
                     const SizedBox(
                       height: 8,
                     ),
@@ -286,37 +292,52 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
 
 List<Widget> getListViewItem(dynamic currenthstodayData) {
   List<Widget> childs = [];
-  var tmp, pop, pcp,sky;
-  for (var i = 1; i < currenthstodayData['response']['body']['totalCount']; i++) {
-    if(currenthstodayData['response']['body']['items']['item'][i]
-    ['category'] == 'SKY'){
-      switch(currenthstodayData['response']['body']['items']['item'][i]
-      ['fcstValue']){
-        case '1' : sky = "맑음"; break;
-        case '3' : sky = "구름 많음"; break;
-        case '4' : sky = "흐림"; break;
+  var tmp, pop, pcp, sky;
+  for (var i = 1;
+      i < currenthstodayData['response']['body']['totalCount'];
+      i++) {
+    if (currenthstodayData['response']['body']['items']['item'][i]
+            ['category'] ==
+        'SKY') {
+      switch (currenthstodayData['response']['body']['items']['item'][i]
+          ['fcstValue']) {
+        case '1':
+          sky = "맑음";
+          break;
+        case '3':
+          sky = "구름 많음";
+          break;
+        case '4':
+          sky = "흐림";
+          break;
       }
     }
     if (currenthstodayData['response']['body']['items']['item'][i]
-    ['category'] ==
-        'TMP' ||
-        currenthstodayData['response']['body']['items']['item'][i]['category'] ==
+                ['category'] ==
+            'TMP' ||
+        currenthstodayData['response']['body']['items']['item'][i]
+                ['category'] ==
             'POP' ||
-        currenthstodayData['response']['body']['items']['item'][i]['category'] ==
+        currenthstodayData['response']['body']['items']['item'][i]
+                ['category'] ==
             'PCP') {
-      if (currenthstodayData['response']['body']['items']['item'][i]['category'] ==
+      if (currenthstodayData['response']['body']['items']['item'][i]
+              ['category'] ==
           'TMP') {
-        tmp = currenthstodayData['response']['body']['items']['item'][i]['fcstValue'];
+        tmp = currenthstodayData['response']['body']['items']['item'][i]
+            ['fcstValue'];
       } else if (currenthstodayData['response']['body']['items']['item'][i]
-      ['category'] ==
+              ['category'] ==
           'POP') {
-        pop = currenthstodayData['response']['body']['items']['item'][i]['fcstValue'];
+        pop = currenthstodayData['response']['body']['items']['item'][i]
+            ['fcstValue'];
       } else if (currenthstodayData['response']['body']['items']['item'][i]
-      ['category'] ==
+              ['category'] ==
           'PCP') {
-        pcp = currenthstodayData['response']['body']['items']['item'][i]['fcstValue'];
+        pcp = currenthstodayData['response']['body']['items']['item'][i]
+            ['fcstValue'];
       }
-      if (tmp != null && pop != null && pcp != null && sky != null ) {
+      if (tmp != null && pop != null && pcp != null && sky != null) {
         childs.add(const SizedBox(
           width: 20,
         ));
@@ -327,11 +348,9 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
             children: [
               // 예보 시간
               Text(
-                "${DateFormat('M월 d일').format(getTime(currenthstodayData['response']['body']['items']['item'][i]
-                ['fcstDate']+ currenthstodayData['response']['body']['items']['item'][i]['fcstTime']))}" +
+                "${DateFormat('M월 d일').format(getTime(currenthstodayData['response']['body']['items']['item'][i]['fcstDate'] + currenthstodayData['response']['body']['items']['item'][i]['fcstTime']))}" +
                     "(${DateFormat('E', 'ko_KR').format(getTime(currenthstodayData['response']['body']['items']['item'][i]['fcstDate'] + currenthstodayData['response']['body']['items']['item'][i]['fcstTime']))})\n"
-                    " ${DateFormat("h:mm a").format(getTime(currenthstodayData['response']['body']['items']['item'][i]
-                ['fcstDate']+ currenthstodayData['response']['body']['items']['item'][i]['fcstTime']))}",
+                        " ${DateFormat("h:mm a").format(getTime(currenthstodayData['response']['body']['items']['item'][i]['fcstDate'] + currenthstodayData['response']['body']['items']['item'][i]['fcstTime']))}",
                 textAlign: TextAlign.start,
                 overflow: TextOverflow.clip,
                 style: const TextStyle(
@@ -345,17 +364,21 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
                 height: 5,
               ),
               // 하늘 상태 정보 아이콘
-              (sky == "맑음") ? Icon(
-                Icons.sunny,
-                color: Colors.orange,
-                size: 60,
-              ) : (sky == "구름 많음") ? Icon(
-                Icons.wb_cloudy_rounded,
-                size: 60,
-              ) : Icon(
-                Icons.wb_cloudy,
-                size: 60,
-              ),
+              (sky == "맑음")
+                  ? Icon(
+                      Icons.sunny,
+                      color: Colors.orange,
+                      size: 60,
+                    )
+                  : (sky == "구름 많음")
+                      ? Icon(
+                          WeatherIcon.clouds,
+                          size: 60,
+                        )
+                      : Icon(
+                          WeatherIcon.cloud_sun,
+                          size: 60,
+                        ),
               const SizedBox(
                 height: 5,
               ),
@@ -406,27 +429,27 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
               // 1시간당 강수량
               (pcp == "강수없음")
                   ? const Text(
-                "강수없음",
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.clip,
-                style: TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontStyle: FontStyle.normal,
-                  fontSize: 18,
-                  color: Color(0xff000000),
-                ),
-              )
+                      "강수없음",
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.clip,
+                      style: TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 18,
+                        color: Color(0xff000000),
+                      ),
+                    )
                   : Text(
-                "${pcp}mm",
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.clip,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w400,
-                  fontStyle: FontStyle.normal,
-                  fontSize: 18,
-                  color: Color(0xff000000),
-                ),
-              ),
+                      "${pcp}mm",
+                      textAlign: TextAlign.start,
+                      overflow: TextOverflow.clip,
+                      style: const TextStyle(
+                        fontWeight: FontWeight.w400,
+                        fontStyle: FontStyle.normal,
+                        fontSize: 18,
+                        color: Color(0xff000000),
+                      ),
+                    ),
             ],
           ),
         );
@@ -439,6 +462,7 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
   }
   return childs;
 }
+
 DateTime getTime(String dateString) {
   //ex 202207081130
   String date = dateString.substring(0, 8);
