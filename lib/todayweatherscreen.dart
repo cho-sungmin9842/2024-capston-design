@@ -111,10 +111,12 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                       : (widget.skyState == "구름 많음")
                           ? Icon(
                               WeatherIcon.clouds,
+                              color: Colors.black12,
                               size: 80,
                             )
                           : Icon(
                               WeatherIcon.cloud_sun,
+                              color: Colors.grey,
                               size: 80,
                             ),
                   SizedBox(
@@ -363,10 +365,12 @@ List<Widget> getListViewItem(dynamic currenttodayData) {
                   : (sky == "구름 많음")
                       ? Icon(
                           WeatherIcon.clouds,
+                          color: Colors.black12,
                           size: 60,
                         )
                       : Icon(
                           WeatherIcon.cloud_sun,
+                          color: Colors.grey,
                           size: 60,
                         ),
               const SizedBox(

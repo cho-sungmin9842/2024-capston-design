@@ -110,10 +110,12 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                         : (widget.skyState == "구름 많음")
                             ? Icon(
                                 WeatherIcon.clouds,
+                                color: Colors.black12,
                                 size: 80,
                               )
                             : Icon(
                                 WeatherIcon.cloud_sun,
+                                color: Colors.grey,
                                 size: 80,
                               ),
                     SizedBox(
@@ -373,10 +375,12 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
                   : (sky == "구름 많음")
                       ? Icon(
                           WeatherIcon.clouds,
+                          color: Colors.black12,
                           size: 60,
                         )
                       : Icon(
                           WeatherIcon.cloud_sun,
+                          color: Colors.grey,
                           size: 60,
                         ),
               const SizedBox(

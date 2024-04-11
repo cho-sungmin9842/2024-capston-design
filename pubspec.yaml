@@ -72,6 +72,8 @@ flutter:
   assets:
     - assets/
     - .env
+    - assets/city/
+    - images/
 
   # To add assets to your application, add an assets section, like this:
   # assets:
@@ -90,10 +92,16 @@ flutter:
   # list giving the asset and other descriptors for the font. For
   # example:
   fonts:
-     - family: WeatherIcon
-       fonts:
-         - asset: fonts/WeatherIcon.ttf
-  #       - asset: fonts/Schyler-Italic.ttf
+    - family: NanumSquareRoundL
+      fonts:
+        - asset: fonts/NanumSquareRoundL.ttf
+    - family: NamunSquareRoundB
+      fonts:
+        - asset: fonts/NanumSquareRoundB.ttf
+    - family: WeatherIcon
+      fonts:
+        - asset: fonts/WeatherIcon.ttf
+
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

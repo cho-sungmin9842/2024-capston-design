@@ -134,7 +134,7 @@ class MyLocation {
 
       // 위/경도 값으로 x,y 좌표로 변환하여 저장
       Weather_map_xy weathermapxy =
-          changelaluMap(position.longitude, position.latitude);
+      changelaluMap(position.longitude, position.latitude);
       currentX = weathermapxy.x;
       currentY = weathermapxy.y;
     } catch (e) {

@@ -58,8 +58,8 @@ class Home extends StatelessWidget {
                   ),
                   child: Text(
                     "화요일인 19일은 종국 발해만 부근의 동쪽으로"
-                    "이동하는 저기압의 영향을 받으면서 전국이 대체로 흐리고,"
-                    "오후(12~18)에 중부지장에 비가 오는 곳이 있겠습니다.",
+                        "이동하는 저기압의 영향을 받으면서 전국이 대체로 흐리고,"
+                        "오후(12~18)에 중부지장에 비가 오는 곳이 있겠습니다.",
                     style: TextStyle(
                       fontSize: 20,
                     ),
@@ -82,9 +82,9 @@ class Home extends StatelessWidget {
                 alignment: Alignment.center,
                 child: const Icon(Icons.sunny),
               ),
-              SizedBox(width: 10),
+              //SizedBox(width: 10),
               Container(
-                width: 45.5,
+                width: 70,
                 height: 57.0,
                 alignment: Alignment.center,
                 child: Text(
@@ -94,16 +94,14 @@ class Home extends StatelessWidget {
               ),
               SizedBox(width: 50),
               Container(
-                width: 30,
-                height: 40,
-                alignment: Alignment.center,
-                child: const Icon(Icons.sunny)
+                  width: 30,
+                  height: 40,
+                  alignment: Alignment.center,
+                  child: const Icon(Icons.sunny)
               ),
-              SizedBox(
-                width: 10,
-              ),
+              //SizedBox(width: 10,),
               Container(
-                width: 45.5,
+                width: 70,
                 height: 57.0,
                 alignment: Alignment.center,
                 child: Text(
@@ -127,9 +125,9 @@ class Home extends StatelessWidget {
                   alignment: Alignment.center,
                   child: const Icon(Icons.sunny),
                 ),
-                SizedBox(width: 10),
+                //SizedBox(width: 10),
                 Container(
-                  width: 45.5,
+                  width: 70,
                   height: 57.0,
                   alignment: Alignment.center,
                   child: Text(
@@ -139,14 +137,14 @@ class Home extends StatelessWidget {
                 ),
                 SizedBox(width: 50),
                 Container(
-                  width: 30,
-                  height: 40,
-                  alignment: Alignment.center,
-                  child: const Icon(Icons.sunny)
+                    width: 30,
+                    height: 40,
+                    alignment: Alignment.center,
+                    child: const Icon(Icons.sunny)
                 ),
-                SizedBox(width: 10),
+                //SizedBox(width: 10),
                 Container(
-                  width: 45.5,
+                  width: 70,
                   height: 57.0,
                   alignment: Alignment.center,
                   child: Text(
@@ -171,9 +169,9 @@ class Home extends StatelessWidget {
                   alignment: Alignment.center,
                   child: const Icon(Icons.sunny),
                 ),
-                SizedBox(width: 10),
+                //SizedBox(width: 10),
                 Container(
-                  width: 45.5,
+                  width: 70,
                   height: 57.0,
                   alignment: Alignment.center,
                   child: Text(
@@ -188,9 +186,9 @@ class Home extends StatelessWidget {
                   alignment: Alignment.center,
                   child: const Icon(Icons.sunny),
                 ),
-                SizedBox(width: 10),
+                //SizedBox(width: 10),
                 Container(
-                  width: 45.5,
+                  width: 70,
                   height: 57.0,
                   alignment: Alignment.center,
                   child: Text(

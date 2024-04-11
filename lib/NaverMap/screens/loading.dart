@@ -1,14 +1,20 @@
 import 'dart:developer';
+
 import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:hansungcapstone_bugiweather/NaverMap/main.dart';
+import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/mylocation.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/network.dart';
+import 'package:hansungcapstone_bugiweather/NaverMap/main.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/NaverMapApp.dart';
 
 const apiKey = '***REMOVED_OWM_KEY***';
 
-class LoadingMap extends StatefulWidget {
 
+
+class LoadingMap extends StatefulWidget {
   @override
   _LoadingState createState() => _LoadingState();
 }
@@ -20,6 +26,7 @@ class _LoadingState extends State<LoadingMap> {
 
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
     getLocation();
 
@@ -63,7 +70,7 @@ class _LoadingState extends State<LoadingMap> {
       Network('https://api.openweathermap.org/data/2.5/weather?lat=37.5601&lon=126.9960&appid=$apiKey&units=metric'), // 중구23
       Network('https://api.openweathermap.org/data/2.5/weather?lat=37.5978&lon=127.0929&appid=$apiKey&units=metric'), // 중랑구24
       // 광역시
-      Network('https://api.openweathermap.org/data/2.5/weather?lat=37.5519&lon=126.9918&appid=$apiKey&units=metric'), // 서울25
+      Network('https://api.openweathermap.org/data/2.5/weather?q=Seoul&appid=$apiKey&units=metric'), // 서울25
       Network('https://api.openweathermap.org/data/2.5/weather?lat=35.2100&lon=129.0689&appid=$apiKey&units=metric'), // 부산26
       Network('https://api.openweathermap.org/data/2.5/weather?lat=37.1557&lon=126.8354&appid=$apiKey&units=metric'), // 광주27
       Network('https://api.openweathermap.org/data/2.5/weather?lat=37.4563&lon=126.7052&appid=$apiKey&units=metric'), // 인천28
@@ -82,6 +89,9 @@ class _LoadingState extends State<LoadingMap> {
       Network('https://api.openweathermap.org/data/2.5/weather?q=Andong&appid=$apiKey&units=metric'), // 안동40
       Network('https://api.openweathermap.org/data/2.5/weather?q=Gimcheon&appid=$apiKey&units=metric'), // 김천41
       Network('https://api.openweathermap.org/data/2.5/weather?q=Pyeongtaek&appid=$apiKey&units=metric'), // 평택42
+      // 한성대학교
+      Network('https://api.openweathermap.org/data/2.5/weather?lat=37.5828&lon=127.0106&appid=$apiKey&units=metric'), // 한성대학교43
+
 
     ];
 
@@ -104,14 +114,36 @@ class _LoadingState extends State<LoadingMap> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Center(
         child: Scaffold(
+          /*        appBar: AppBar(
+            title: Text('아니'),
+            leading: IconButton(
+              onPressed: () { },
+              icon: Icon(Icons.list),
+            ),
+            backgroundColor: Colors.cyan,
+          ),*/
           body: Center(
             child: ElevatedButton(
               onPressed: (){},
               child: Text('위치 정보를 가져오는 중입니다...'),
             ),
           ),
+          /*       bottomNavigationBar: BottomAppBar(
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                IconButton(
+                  icon: Icon(Icons.star),
+                  onPressed:(){} ,
+                ),
+                Icon(Icons.add_chart),
+                Icon(Icons.key),
+              ],
+            ),
+          ),*/
         ),
       ),
     );

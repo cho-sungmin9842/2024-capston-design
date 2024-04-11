@@ -15,4 +15,3 @@ const apiKey = '***REMOVED_OWM_KEY***';
   runApp(MaterialApp(home : Loading(),));
 }*/
 // 지도 초기화하기
-
