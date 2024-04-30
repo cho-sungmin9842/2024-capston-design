@@ -51,9 +51,19 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
         padding: EdgeInsets.zero,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/backimg.png"),
+            image: (widget.skyState == "맑음" && DateTime.now().hour <= 18)
+                ? AssetImage("assets/background_sunny.png")
+                : (widget.skyState == "맑음" && DateTime.now().hour >= 19)
+                ? AssetImage("assets/background_sunny_night.png")
+                : (widget.skyState == "구름 많음" && DateTime.now().hour <= 18)
+                ? AssetImage("assets/background_manycloud.png")
+                : (widget.skyState == "구름 많음" && DateTime.now().hour >= 19)
+                ? AssetImage("assets/background_manycloud_night.png")
+                : (widget.skyState == "흐림" && DateTime.now().hour <= 18)
+                ? AssetImage("assets/background_cloudy.png")
+                : AssetImage("assets/background_cloudy_night.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -76,7 +86,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                         fontWeight: FontWeight.w500,
                         fontStyle: FontStyle.normal,
                         fontSize: 16,
-                        color: Color(0xff000000),
+                        color: Colors.deepPurple,
                       ),
                     ),
                     SizedBox(
@@ -94,7 +104,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                         fontWeight: FontWeight.w600,
                         fontStyle: FontStyle.normal,
                         fontSize: 16,
-                        color: Color(0xff000000),
+                        color: Colors.deepPurple,
                       ),
                     ),
                     SizedBox(
@@ -110,12 +120,12 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                         : (widget.skyState == "구름 많음")
                             ? Icon(
                                 WeatherIcon.clouds,
-                                color: Colors.black12,
+                                color: Colors.deepPurple,
                                 size: 80,
                               )
                             : Icon(
                                 WeatherIcon.cloud_sun,
-                                color: Colors.grey,
+                                color: Colors.deepPurple,
                                 size: 80,
                               ),
                     SizedBox(
@@ -130,7 +140,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
                         fontSize: 20,
-                        color: Color(0xff000000),
+                        color: Colors.deepPurple,
                       ),
                     ),
                     SizedBox(
@@ -148,7 +158,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                               fontWeight: FontWeight.w400,
                               fontStyle: FontStyle.normal,
                               fontSize: 18,
-                              color: Color(0xff000000),
+                              color: Colors.deepPurple,
                             ),
                           )
                         : Text(
@@ -159,7 +169,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                               fontWeight: FontWeight.w400,
                               fontStyle: FontStyle.normal,
                               fontSize: 18,
-                              color: Color(0xff000000),
+                              color: Colors.deepPurple,
                             ),
                           ),
                     const SizedBox(
@@ -175,7 +185,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
                         fontSize: 35,
-                        color: Color(0xff000000),
+                        color: Colors.deepPurple,
                       ),
                     ),
                     SizedBox(
@@ -194,7 +204,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.normal,
                             fontSize: 15,
-                            color: Color(0xff000000),
+                            color: Colors.deepPurple,
                           ),
                         ),
                         SizedBox(
@@ -209,7 +219,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.normal,
                             fontSize: 15,
-                            color: Color(0xff000000),
+                            color: Colors.deepPurple,
                           ),
                         ),
                         SizedBox(
@@ -223,7 +233,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.normal,
                             fontSize: 15,
-                            color: Color(0xff000000),
+                            color: Colors.deepPurple,
                           ),
                         ),
                         SizedBox(
@@ -238,7 +248,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.normal,
                             fontSize: 15,
-                            color: Color(0xff000000),
+                            color: Colors.deepPurple,
                           ),
                         ),
                         SizedBox(
@@ -262,7 +272,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                             fontWeight: FontWeight.w400,
                             fontStyle: FontStyle.normal,
                             fontSize: 16,
-                            color: Color(0xff000000),
+                            color: Colors.deepPurple,
                           ),
                         ),
                         SizedBox(
@@ -352,14 +362,13 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
               Text(
                 "${DateFormat('M월 d일').format(getTime(currenthstodayData['response']['body']['items']['item'][i]['fcstDate'] + currenthstodayData['response']['body']['items']['item'][i]['fcstTime']))}" +
                     "(${DateFormat('E', 'ko_KR').format(getTime(currenthstodayData['response']['body']['items']['item'][i]['fcstDate'] + currenthstodayData['response']['body']['items']['item'][i]['fcstTime']))})\n"
-                        " ${DateFormat("h:mm a").format(getTime(currenthstodayData['response']['body']['items']['item'][i]['fcstDate'] + currenthstodayData['response']['body']['items']['item'][i]['fcstTime']))}",
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.clip,
+                        "${DateFormat("h:mm a").format(getTime(currenthstodayData['response']['body']['items']['item'][i]['fcstDate'] + currenthstodayData['response']['body']['items']['item'][i]['fcstTime']))}",
+                textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.normal,
                   fontSize: 25,
-                  color: Color(0xff000000),
+                  color: Colors.deepPurple,
                 ),
               ),
               const SizedBox(
@@ -375,12 +384,12 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
                   : (sky == "구름 많음")
                       ? Icon(
                           WeatherIcon.clouds,
-                          color: Colors.black12,
+                          color: Colors.deepPurple,
                           size: 60,
                         )
                       : Icon(
                           WeatherIcon.cloud_sun,
-                          color: Colors.grey,
+                          color: Colors.deepPurple,
                           size: 60,
                         ),
               const SizedBox(
@@ -394,7 +403,7 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
                   fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.normal,
                   fontSize: 18,
-                  color: Color(0xff000000),
+                  color: Colors.deepPurple,
                 ),
               ),
               const SizedBox(
@@ -409,7 +418,7 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
                   fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.normal,
                   fontSize: 25,
-                  color: Color(0xff000000),
+                  color: Colors.deepPurple,
                 ),
               ),
               const SizedBox(
@@ -424,7 +433,7 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
                   fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.normal,
                   fontSize: 18,
-                  color: Color(0xff000000),
+                  color: Colors.deepPurple,
                 ),
               ),
               const SizedBox(
@@ -440,18 +449,18 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
                         fontSize: 18,
-                        color: Color(0xff000000),
+                        color: Colors.deepPurple,
                       ),
                     )
                   : Text(
-                      "${pcp}mm",
+                      pcp,
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.clip,
                       style: const TextStyle(
                         fontWeight: FontWeight.w400,
                         fontStyle: FontStyle.normal,
                         fontSize: 18,
-                        color: Color(0xff000000),
+                        color: Colors.deepPurple,
                       ),
                     ),
             ],

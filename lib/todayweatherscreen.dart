@@ -43,6 +43,7 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
     super.initState();
     initializeDateFormatting();
     daysFormat = DateFormat('E', 'ko_KR'); //요일 한글 표현
+    print("현재 시간 = ${DateTime.now().hour}");
   }
 
   @override
@@ -51,11 +52,28 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
       body: Container(
         margin: EdgeInsets.zero,
         padding: EdgeInsets.zero,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        decoration: const BoxDecoration(
+        width: MediaQuery
+            .of(context)
+            .size
+            .width,
+        height: MediaQuery
+            .of(context)
+            .size
+            .height,
+        decoration: BoxDecoration(
           image: DecorationImage(
-            image: AssetImage("assets/backimg.png"),
+            image:
+                (widget.skyState == "맑음" && DateTime.now().hour <= 18)
+                ? AssetImage("assets/background_sunny.png")
+                    : (widget.skyState == "맑음" && DateTime.now().hour >= 19)
+                    ? AssetImage("assets/background_sunny_night.png")
+                : (widget.skyState == "구름 많음" && DateTime.now().hour <= 18)
+                ? AssetImage("assets/background_manycloud.png")
+                    : (widget.skyState == "구름 많음" && DateTime.now().hour >= 19)
+                    ? AssetImage("assets/background_manycloud_night.png")
+                : (widget.skyState == "흐림" && DateTime.now().hour <= 18)
+                    ? AssetImage("assets/background_cloudy.png")
+                : AssetImage("assets/background_cloudy_night.png"),
             fit: BoxFit.cover,
           ),
         ),
@@ -70,14 +88,15 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Text(
-                    "${DateFormat('yyyy년 M월 d일 ').format(DateTime.now())}(${daysFormat.format(DateTime.now())})",
+                    "${DateFormat('yyyy년 M월 d일 ').format(
+                        DateTime.now())}(${daysFormat.format(DateTime.now())})",
                     textAlign: TextAlign.start,
                     overflow: TextOverflow.clip,
                     style: const TextStyle(
                       fontWeight: FontWeight.w500,
                       fontStyle: FontStyle.normal,
                       fontSize: 16,
-                      color: Color(0xff000000),
+                      color: Colors.deepPurple,
                     ),
                   ),
                   const SizedBox(
@@ -85,17 +104,17 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                   ),
                   Text(
                     widget.addrData['documents'][0]['address']
-                            ['region_2depth_name'] +
+                    ['region_2depth_name'] +
                         " " +
                         widget.addrData['documents'][0]['address']
-                            ['region_3depth_name'],
+                        ['region_3depth_name'],
                     textAlign: TextAlign.start,
                     overflow: TextOverflow.clip,
                     style: TextStyle(
                       fontWeight: FontWeight.w600,
                       fontStyle: FontStyle.normal,
                       fontSize: 16,
-                      color: Color(0xff000000),
+                      color: Colors.deepPurple,
                     ),
                   ),
                   SizedBox(
@@ -104,21 +123,21 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                   // 하늘 상태 정보 아이콘
                   (widget.skyState == "맑음")
                       ? Icon(
-                          Icons.sunny,
-                          color: Colors.orange,
-                          size: 80,
-                        )
+                    Icons.sunny,
+                    color: Colors.orange,
+                    size: 80,
+                  )
                       : (widget.skyState == "구름 많음")
-                          ? Icon(
-                              WeatherIcon.clouds,
-                              color: Colors.black12,
-                              size: 80,
-                            )
-                          : Icon(
-                              WeatherIcon.cloud_sun,
-                              color: Colors.grey,
-                              size: 80,
-                            ),
+                      ? Icon(
+                    WeatherIcon.clouds,
+                    color: Colors.deepPurple,
+                    size: 80,
+                  )
+                      : Icon(
+                    WeatherIcon.cloud_sun,
+                    color: Colors.deepPurple,
+                    size: 80,
+                  ),
                   SizedBox(
                     height: 8,
                   ),
@@ -129,7 +148,7 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
                       fontSize: 20,
-                      color: Color(0xff000000),
+                      color: Colors.deepPurple,
                     ),
                   ),
                   SizedBox(
@@ -137,43 +156,45 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                   ),
                   // 시간당 강수량
                   (widget.currentWeatherData['response']['body']['items']
-                              ['item'][2]['obsrValue'] ==
-                          "0")
+                  ['item'][2]['obsrValue'] ==
+                      "0")
                       ? const Text(
-                          "강수없음",
-                          textAlign: TextAlign.start,
-                          overflow: TextOverflow.clip,
-                          style: TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 18,
-                            color: Color(0xff000000),
-                          ),
-                        )
+                    "강수없음",
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.clip,
+                    style: TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 18,
+                      color: Colors.deepPurple,
+                    ),
+                  )
                       : Text(
-                          "${widget.currentWeatherData['response']['body']['items']['item'][2]['obsrValue']}mm",
-                          textAlign: TextAlign.start,
-                          overflow: TextOverflow.clip,
-                          style: const TextStyle(
-                            fontWeight: FontWeight.w400,
-                            fontStyle: FontStyle.normal,
-                            fontSize: 18,
-                            color: Color(0xff000000),
-                          ),
-                        ),
+                    "${widget
+                        .currentWeatherData['response']['body']['items']['item'][2]['obsrValue']}mm",
+                    textAlign: TextAlign.start,
+                    overflow: TextOverflow.clip,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w400,
+                      fontStyle: FontStyle.normal,
+                      fontSize: 18,
+                      color: Colors.deepPurple,
+                    ),
+                  ),
                   const SizedBox(
                     height: 8,
                   ),
                   // 현재 기온
                   Text(
-                    "${widget.currentWeatherData['response']['body']['items']['item'][3]['obsrValue']}°C",
+                    "${widget
+                        .currentWeatherData['response']['body']['items']['item'][3]['obsrValue']}°C",
                     textAlign: TextAlign.start,
                     overflow: TextOverflow.clip,
                     style: const TextStyle(
                       fontWeight: FontWeight.w400,
                       fontStyle: FontStyle.normal,
                       fontSize: 35,
-                      color: Color(0xff000000),
+                      color: Colors.deepPurple,
                     ),
                   ),
                   const SizedBox(
@@ -192,7 +213,7 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
                           fontSize: 15,
-                          color: Color(0xff000000),
+                          color: Colors.deepPurple,
                         ),
                       ),
                       const SizedBox(
@@ -206,7 +227,7 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
                           fontSize: 15,
-                          color: Color(0xff000000),
+                          color: Colors.deepPurple,
                         ),
                       ),
                       const SizedBox(
@@ -220,7 +241,7 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
                           fontSize: 15,
-                          color: Color(0xff000000),
+                          color: Colors.deepPurple,
                         ),
                       ),
                       const SizedBox(
@@ -234,7 +255,7 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
                           fontSize: 15,
-                          color: Color(0xff000000),
+                          color: Colors.deepPurple,
                         ),
                       ),
                       const SizedBox(
@@ -258,7 +279,7 @@ class TodayWeatherState extends State<TodayWeatherScreen> {
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
                           fontSize: 16,
-                          color: Color(0xff000000),
+                          color: Colors.deepPurple,
                         ),
                       ),
                       const SizedBox(
@@ -294,7 +315,7 @@ List<Widget> getListViewItem(dynamic currenttodayData) {
     if (currenttodayData['response']['body']['items']['item'][i]['category'] ==
         'SKY') {
       switch (currenttodayData['response']['body']['items']['item'][i]
-          ['fcstValue']) {
+      ['fcstValue']) {
         case '1':
           sky = "맑음";
           break;
@@ -307,27 +328,27 @@ List<Widget> getListViewItem(dynamic currenttodayData) {
       }
     }
     if (currenttodayData['response']['body']['items']['item'][i]
-                ['category'] ==
-            'TMP' ||
+    ['category'] ==
+        'TMP' ||
         currenttodayData['response']['body']['items']['item'][i]['category'] ==
             'POP' ||
         currenttodayData['response']['body']['items']['item'][i]['category'] ==
             'PCP') {
       if (currenttodayData['response']['body']['items']['item'][i]
-              ['category'] ==
+      ['category'] ==
           'TMP') {
         tmp = currenttodayData['response']['body']['items']['item'][i]
-            ['fcstValue'];
+        ['fcstValue'];
       } else if (currenttodayData['response']['body']['items']['item'][i]
-              ['category'] ==
+      ['category'] ==
           'POP') {
         pop = currenttodayData['response']['body']['items']['item'][i]
-            ['fcstValue'];
+        ['fcstValue'];
       } else if (currenttodayData['response']['body']['items']['item'][i]
-              ['category'] ==
+      ['category'] ==
           'PCP') {
         pcp = currenttodayData['response']['body']['items']['item'][i]
-            ['fcstValue'];
+        ['fcstValue'];
       }
       if (tmp != null && pop != null && pcp != null && sky != null) {
         childs.add(const SizedBox(
@@ -340,16 +361,21 @@ List<Widget> getListViewItem(dynamic currenttodayData) {
             children: [
               // 예보 시간
               Text(
-                "${DateFormat('M월 d일').format(getTime(currenttodayData['response']['body']['items']['item'][i]['fcstDate'] + currenttodayData['response']['body']['items']['item'][i]['fcstTime']))}" +
-                    "(${DateFormat('E', 'ko_KR').format(getTime(currenttodayData['response']['body']['items']['item'][i]['fcstDate'] + currenttodayData['response']['body']['items']['item'][i]['fcstTime']))})\n"
-                        " ${DateFormat("h:mm a").format(getTime(currenttodayData['response']['body']['items']['item'][i]['fcstDate'] + currenttodayData['response']['body']['items']['item'][i]['fcstTime']))}",
-                textAlign: TextAlign.start,
-                overflow: TextOverflow.clip,
+                "${DateFormat('M월 d일').format(getTime(
+                    currenttodayData['response']['body']['items']['item'][i]['fcstDate'] +
+                        currenttodayData['response']['body']['items']['item'][i]['fcstTime']))}" +
+                    "(${DateFormat('E', 'ko_KR').format(getTime(
+                        currenttodayData['response']['body']['items']['item'][i]['fcstDate'] +
+                            currenttodayData['response']['body']['items']['item'][i]['fcstTime']))})\n"
+                        "${DateFormat("h:mm a").format(getTime(
+                        currenttodayData['response']['body']['items']['item'][i]['fcstDate'] +
+                            currenttodayData['response']['body']['items']['item'][i]['fcstTime']))}",
+                textAlign: TextAlign.center,
                 style: const TextStyle(
                   fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.normal,
                   fontSize: 25,
-                  color: Color(0xff000000),
+                  color: Colors.deepPurple,
                 ),
               ),
               const SizedBox(
@@ -358,21 +384,21 @@ List<Widget> getListViewItem(dynamic currenttodayData) {
               // 하늘 상태 정보 아이콘
               (sky == "맑음")
                   ? Icon(
-                      Icons.sunny,
-                      color: Colors.orange,
-                      size: 60,
-                    )
+                Icons.sunny,
+                color: Colors.orange,
+                size: 60,
+              )
                   : (sky == "구름 많음")
-                      ? Icon(
-                          WeatherIcon.clouds,
-                          color: Colors.black12,
-                          size: 60,
-                        )
-                      : Icon(
-                          WeatherIcon.cloud_sun,
-                          color: Colors.grey,
-                          size: 60,
-                        ),
+                  ? Icon(
+                WeatherIcon.clouds,
+                color: Colors.deepPurple,
+                size: 60,
+              )
+                  : Icon(
+                WeatherIcon.cloud_sun,
+                color: Colors.deepPurple,
+                size: 60,
+              ),
               const SizedBox(
                 height: 5,
               ),
@@ -384,7 +410,7 @@ List<Widget> getListViewItem(dynamic currenttodayData) {
                   fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.normal,
                   fontSize: 18,
-                  color: Color(0xff000000),
+                  color: Colors.deepPurple,
                 ),
               ),
               const SizedBox(
@@ -399,7 +425,7 @@ List<Widget> getListViewItem(dynamic currenttodayData) {
                   fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.normal,
                   fontSize: 25,
-                  color: Color(0xff000000),
+                  color: Colors.deepPurple,
                 ),
               ),
               const SizedBox(
@@ -414,7 +440,7 @@ List<Widget> getListViewItem(dynamic currenttodayData) {
                   fontWeight: FontWeight.w400,
                   fontStyle: FontStyle.normal,
                   fontSize: 18,
-                  color: Color(0xff000000),
+                  color: Colors.deepPurple,
                 ),
               ),
               const SizedBox(
@@ -423,27 +449,27 @@ List<Widget> getListViewItem(dynamic currenttodayData) {
               // 1시간당 강수량
               (pcp == "강수없음")
                   ? const Text(
-                      "강수없음",
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.clip,
-                      style: TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 18,
-                        color: Color(0xff000000),
-                      ),
-                    )
+                "강수없음",
+                textAlign: TextAlign.start,
+                overflow: TextOverflow.clip,
+                style: TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontStyle: FontStyle.normal,
+                  fontSize: 18,
+                  color: Colors.deepPurple,
+                ),
+              )
                   : Text(
-                      "${pcp}mm",
-                      textAlign: TextAlign.start,
-                      overflow: TextOverflow.clip,
-                      style: const TextStyle(
-                        fontWeight: FontWeight.w400,
-                        fontStyle: FontStyle.normal,
-                        fontSize: 18,
-                        color: Color(0xff000000),
-                      ),
-                    ),
+                pcp,
+                textAlign: TextAlign.start,
+                overflow: TextOverflow.clip,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w400,
+                  fontStyle: FontStyle.normal,
+                  fontSize: 18,
+                  color: Colors.deepPurple,
+                ),
+              ),
             ],
           ),
         );

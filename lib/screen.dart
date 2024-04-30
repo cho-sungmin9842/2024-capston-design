@@ -87,7 +87,6 @@ class HomeScreenState extends State<HomeScreen> {
       Favorites(),
     ];
   }
-
   Widget getTodayWeatherScreen() {
     // 2시 데이터
     int totalCount =

@@ -333,7 +333,8 @@ class _DustScreenState extends State<DustScreen> {
                           width: 10,
                         ),
                         const Image(
-                          image: AssetImage("assets/o3.png"),
+                          // image: AssetImage("assets/o3.png"),
+                          image : AssetImage("assets/O3_3d.png"),
                           width: 50.0,
                           height: 50.0,
                         ),
@@ -427,7 +428,8 @@ class _DustScreenState extends State<DustScreen> {
                           width: 10,
                         ),
                         const Image(
-                          image: AssetImage("assets/no2.png"),
+                          // image: AssetImage("assets/no2.png"),
+                          image : AssetImage("assets/NO2_3d.png"),
                           width: 50.0,
                           height: 50.0,
                         ),
@@ -521,7 +523,8 @@ class _DustScreenState extends State<DustScreen> {
                           width: 10,
                         ),
                         const Image(
-                          image: AssetImage("assets/co.png"),
+                          // image: AssetImage("assets/co.png"),
+                          image : AssetImage("assets/CO_3d.png"),
                           width: 50.0,
                           height: 50.0,
                         ),
@@ -618,7 +621,8 @@ class _DustScreenState extends State<DustScreen> {
                           width: 10,
                         ),
                         const Image(
-                          image: AssetImage("assets/so2.png"),
+                          // image: AssetImage("assets/so2.png"),
+                          image : AssetImage("assets/SO2_3d.png"),
                           width: 50.0,
                           height: 50.0,
                         ),
