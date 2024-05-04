@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'NaverMap/mylocation.dart';
 import 'httpnetwork.dart';
+import 'network.dart';
 
 final String apiKey = dotenv.get("apiKey");
 final String kakaoApiKey = dotenv.get("kakao_api");
@@ -176,6 +177,9 @@ class _AppLoadingState extends State<AppLoading> {
     // 한성대에서 금일 현재 시간부로부터 단기 예보 데이터
     var currenthstodayData = await network.getToday2amData();
 
+    final data = await getJsonData();
+    final dailyForecasts = data['daily'] as List<dynamic>;
+
     Navigator.push(
       context,
       MaterialPageRoute(
@@ -191,6 +195,7 @@ class _AppLoadingState extends State<AppLoading> {
             hscurrentWeatherData: hscurrentWeatherData,
             superShortWeatherData: superShortWeatherData,
             hssuperShortWeatherData: hssuperShortWeatherData,
+            dailyWeather: dailyForecasts,
           );
         },
       ),

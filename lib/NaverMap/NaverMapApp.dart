@@ -1,5 +1,6 @@
 
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:flutter/cupertino.dart';
 import 'dart:async';
@@ -11,6 +12,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:hansungcapstone_bugiweather/NaverMap/font.dart';
 const apiKey = '***REMOVED_OWM_KEY***';
 
 class NaverMapApp extends StatefulWidget {
@@ -76,6 +78,7 @@ class _NaverMapAppState extends State<NaverMapApp> {
       child: Center(
         child: Scaffold(
           appBar: AppBar(
+            title: Text("전국 날씨", style: TitleStyle(),),
             elevation: 4,
             centerTitle: true,
             automaticallyImplyLeading: false,
@@ -84,10 +87,22 @@ class _NaverMapAppState extends State<NaverMapApp> {
               onPressed: () {},
               iconSize: 30.0,
             ),
+            flexibleSpace: new Container(
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: <Color>[
+                    Color(0xffbfd5ff),
+                    Color(0xff74d5ff),
+                  ],
+                ),
+              ),
+            ),
           ),
           bottomNavigationBar: BottomAppBar(
             child: TextButton(
-              child: Text("뒤로가기"),
+              child: Text("뒤로가기", style: TextStyle(color: Colors.blue, fontSize: 24,),),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -114,7 +129,7 @@ class _NaverMapAppState extends State<NaverMapApp> {
             onMapReady: (controller) async {                // 지도 준비 완료 시 호출되는 콜백 함수
 
               // 한성대학교
-              final hansungLogo = NOverlayImage.fromAssetImage('assets/hansung.png');
+              final hansungLogo = await NOverlayImage.fromAssetImage("assets/boogiepin.png");
               final markerHansung = NMarker(id: 'hansung', position: NLatLng(37.5828, 127.0106), icon: hansungLogo) // 한성대학교
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
@@ -612,6 +627,11 @@ class _NaverMapAppState extends State<NaverMapApp> {
         return Container(
           height: 330,
           decoration: BoxDecoration(
+            image: DecorationImage(
+              fit: BoxFit.fill,
+              image: AssetImage('assets/'+condition+'.png'),
+              //image: AssetImage('assets/Haze.png'),
+            ),
             gradient: LinearGradient(
               colors: [Color(0xff74d5ff), Color(0xffbfd5ff)], // 그라데이션에 사용될 색상 리스트
               begin: Alignment.topCenter, // 그라데이션 시작 위치
@@ -753,86 +773,7 @@ class _NaverMapAppState extends State<NaverMapApp> {
     return SvgPicture.asset("assets/city/" + cityName + ".svg", height: 30, width: 30,);
   }
 }
-class TitleStyle extends TextStyle {
-  @override
-  // TODO: implement fontSize
-  double? get fontSize => 32;
-  @override
-  // TODO: implement fontFamily
-  String? get fontFamily => 'NanumSquareRoundB';
-  @override
-  // TODO: implement color
-  Color? get color => Colors.white;
-  @override
-  // TODO: implement shadows
-  List<Shadow>? get shadows => [
-    myShadow(),
-  ];
-}
-class SubStyle extends TextStyle {
-  @override
-  // TODO: implement fontSize
-  double? get fontSize => 26;
 
-  @override
-  // TODO: implement fontFamily
-  String? get fontFamily => 'NanumSquareRoundB';
-
-  @override
-  // TODO: implement color
-  Color? get color => Colors.white;
-  List<Shadow>? get shadows => [
-    myShadow(),
-  ];
-}
-class DateStyle extends TextStyle {
-  @override
-  // TODO: implement fontSize
-  double? get fontSize => 20;
-
-  @override
-  // TODO: implement fontFamily
-  String? get fontFamily => 'NanumSquareRoundL';
-
-  @override
-  // TODO: implement color
-  Color? get color => Colors.white;
-  List<Shadow>? get shadows => [
-    myShadow(),
-  ];
-}
-class MinTempStyle extends TextStyle {
-  @override
-  // TODO: implement fontSize
-  double? get fontSize => 26;
-
-  @override
-  // TODO: implement fontFamily
-  String? get fontFamily => 'NanumSquareRoundB';
-
-  @override
-  // TODO: implement color
-  Color? get color => Colors.blueAccent;
-  List<Shadow>? get shadows => [
-    myShadow(),
-  ];
-}
-class MaxTempStyle extends TextStyle {
-  @override
-  // TODO: implement fontSize
-  double? get fontSize => 26;
-
-  @override
-  // TODO: implement fontFamily
-  String? get fontFamily => 'NanumSquareRoundB';
-
-  @override
-  // TODO: implement color
-  Color? get color => Colors.redAccent;
-  List<Shadow>? get shadows => [
-    myShadow(),
-  ];
-}
 
 class ClearIcon extends StatelessWidget {
   const ClearIcon({super.key});
@@ -902,11 +843,4 @@ class HazeIcon extends StatelessWidget {
   Widget build(BuildContext context) {
     return Image.asset("images/haze.png",fit: BoxFit.contain,);
   }
-}
-Shadow myShadow() {
-  return Shadow(
-    color: Colors.grey,
-    offset: Offset(0,2),
-    blurRadius: 5,
-  );
 }

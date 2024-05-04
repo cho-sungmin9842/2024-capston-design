@@ -50,6 +50,7 @@ class HttpNetwork {
 
   // 초단기 실황 json
   Future<dynamic> getCurrentWeatherData() async {
+    print("currentWeatherUrl=${currentWeatherUrl}");
     http.Response response = await http.get(Uri.parse(currentWeatherUrl));
     if (response.statusCode == 200) {
       String jsonData = response.body;

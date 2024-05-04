@@ -125,10 +125,18 @@ class _LoadingState extends State<LoadingMap> {
             ),
             backgroundColor: Colors.cyan,
           ),*/
-          body: Center(
-            child: ElevatedButton(
-              onPressed: (){},
-              child: Text('위치 정보를 가져오는 중입니다...'),
+          body: Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/backimg.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Center(
+              child: ElevatedButton(
+                onPressed: (){},
+                child: Text('위치 정보를 가져오는 중입니다...'),
+              ),
             ),
           ),
           /*       bottomNavigationBar: BottomAppBar(

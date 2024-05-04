@@ -112,22 +112,10 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                     ),
                     // 하늘 상태 정보 아이콘
                     (widget.skyState == "맑음")
-                        ? Icon(
-                            Icons.sunny,
-                            color: Colors.orange,
-                            size: 80,
-                          )
+                        ? Image.asset('images/sun_1x.png', width: 100,height: 100)
                         : (widget.skyState == "구름 많음")
-                            ? Icon(
-                                WeatherIcon.clouds,
-                                color: Colors.deepPurple,
-                                size: 80,
-                              )
-                            : Icon(
-                                WeatherIcon.cloud_sun,
-                                color: Colors.deepPurple,
-                                size: 80,
-                              ),
+                        ? Image.asset('images/cloud_1x.png', width: 100,height: 100)
+                        : Image.asset('images/sunc_1x.png', width: 100,height: 100),
                     SizedBox(
                       height: 8,
                     ),
@@ -376,22 +364,10 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
               ),
               // 하늘 상태 정보 아이콘
               (sky == "맑음")
-                  ? Icon(
-                      Icons.sunny,
-                      color: Colors.orange,
-                      size: 60,
-                    )
+                  ? Image.asset('images/sun_1x.png', width: 100,height: 100)
                   : (sky == "구름 많음")
-                      ? Icon(
-                          WeatherIcon.clouds,
-                          color: Colors.deepPurple,
-                          size: 60,
-                        )
-                      : Icon(
-                          WeatherIcon.cloud_sun,
-                          color: Colors.deepPurple,
-                          size: 60,
-                        ),
+                      ? Image.asset('images/cloud_1x.png', width: 100,height: 100)
+                      : Image.asset('images/sunc_1x.png', width: 100,height: 100),
               const SizedBox(
                 height: 5,
               ),
