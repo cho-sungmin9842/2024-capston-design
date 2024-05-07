@@ -319,7 +319,7 @@ class HomeScreenState extends State<HomeScreen> {
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month),
-            label: '단기 예보',
+            label: '주간 예보',
           ),
           BottomNavigationBarItem(
               icon: Image.asset("assets/bugi.png", width: 24, height: 24),

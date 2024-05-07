@@ -112,10 +112,10 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                     ),
                     // 하늘 상태 정보 아이콘
                     (widget.skyState == "맑음")
-                        ? Image.asset('images/sun_1x.png', width: 100,height: 100)
+                        ? Image.asset('images/sun_1x.png', width: 80,height: 80)
                         : (widget.skyState == "구름 많음")
-                        ? Image.asset('images/cloud_1x.png', width: 100,height: 100)
-                        : Image.asset('images/sunc_1x.png', width: 100,height: 100),
+                        ? Image.asset('images/cloud_1x.png', width: 80,height: 80)
+                        : Image.asset('images/sunc_1x.png', width: 80,height: 80),
                     SizedBox(
                       height: 8,
                     ),
@@ -166,7 +166,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                     // 현재 기온
                     Text(
                       // "12°C",
-                      "${widget.currentWeatherData['response']['body']['items']['item'][3]['obsrValue']}°C",
+                      "${widget.currentWeatherData['response']['body']['items']['item'][3]['obsrValue']}°",
                       textAlign: TextAlign.start,
                       overflow: TextOverflow.clip,
                       style: TextStyle(
@@ -200,7 +200,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                         ),
                         Text(
                           // '10°C',
-                          "${widget.todayTMN2}°C",
+                          "${widget.todayTMN2}°",
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.clip,
                           style: TextStyle(
@@ -229,7 +229,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen> {
                         ),
                         Text(
                           // "10°C",
-                          "${widget.todayTMX2}°C",
+                          "${widget.todayTMX2}°",
                           textAlign: TextAlign.start,
                           overflow: TextOverflow.clip,
                           style: TextStyle(
@@ -364,10 +364,10 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
               ),
               // 하늘 상태 정보 아이콘
               (sky == "맑음")
-                  ? Image.asset('images/sun_1x.png', width: 100,height: 100)
+                  ? Image.asset('images/sun_1x.png', width: 80,height: 80)
                   : (sky == "구름 많음")
-                      ? Image.asset('images/cloud_1x.png', width: 100,height: 100)
-                      : Image.asset('images/sunc_1x.png', width: 100,height: 100),
+                      ? Image.asset('images/cloud_1x.png', width: 80,height: 80)
+                      : Image.asset('images/sunc_1x.png', width: 80,height: 80),
               const SizedBox(
                 height: 5,
               ),
@@ -387,7 +387,7 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
               ),
               // 시간별 기온
               Text(
-                "$tmp°C",
+                "$tmp°",
                 textAlign: TextAlign.start,
                 overflow: TextOverflow.clip,
                 style: const TextStyle(
