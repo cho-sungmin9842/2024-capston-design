@@ -61,7 +61,7 @@ class MinTempStyle extends TextStyle {
 
   @override
   // TODO: implement color
-  Color? get color => Colors.blueAccent;
+  Color? get color => Colors.blue.shade700;
   List<Shadow>? get shadows => [
     myShadow(),
   ];
@@ -77,7 +77,7 @@ class MaxTempStyle extends TextStyle {
 
   @override
   // TODO: implement color
-  Color? get color => Colors.redAccent;
+  Color? get color => Colors.red.shade700;
   List<Shadow>? get shadows => [
     myShadow(),
   ];
@@ -88,4 +88,22 @@ Shadow myShadow() {
     offset: Offset(0,2),
     blurRadius: 5,
   );
+}
+class backStyle extends TitleStyle {
+  @override
+  // TODO: implement color
+  Color? get color => Colors.black;
+}
+class TempStyle extends TitleStyle {
+  @override
+  // TODO: implement fontSize
+  double? get fontSize => 48;
+}
+class Title54Style extends TitleStyle {
+  @override
+  // TODO: implement color
+  Color? get color => Colors.white;
+  @override
+  // TODO: implement fontSize
+  double? get fontSize => 26;
 }

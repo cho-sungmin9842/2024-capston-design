@@ -33,6 +33,7 @@ class HomeScreen extends StatefulWidget {
   final dynamic currenttodayData;
   final dynamic currenthstodayData;
   final dynamic dailyWeather;
+  // final dynamic parseWeatherData2;
 
   const HomeScreen({
     super.key,
@@ -47,6 +48,7 @@ class HomeScreen extends StatefulWidget {
     this.superShortWeatherData,
     this.hssuperShortWeatherData,
     this.dailyWeather,
+    // this.parseWeatherData2,
   });
 
   @override
@@ -85,13 +87,17 @@ class HomeScreenState extends State<HomeScreen> {
 
     _widgetOptions = <Widget>[
       getTodayWeatherScreen(),
-      weekScreen(parseWeatherData: widget.dailyWeather),
+      weekScreen(
+        parseWeatherData: widget.dailyWeather,
+        // parseWeatherData2: widget.parseWeatherData2,
+      ),
       getHSTodayWeatherScreen(),
       LoadingMap(),
       // Favorites(),
       LoadingScreen(),
     ];
   }
+
   Widget getTodayWeatherScreen() {
     // 2시 데이터
     int totalCount =
@@ -126,7 +132,7 @@ class HomeScreenState extends State<HomeScreen> {
         }
       }
     }
-    var skyCode, skyState;
+    var skyCode, ptyCode, skyState;
     var timeHH = DateFormat('HH00')
         .format(DateTime.now().add(const Duration(minutes: 30))); // 30분후
     // 초단기 예보
@@ -138,6 +144,7 @@ class HomeScreenState extends State<HomeScreen> {
       // PTY 코드값
       if (parsed_json['category'] == 'PTY' &&
           parsed_json['fcstTime'] == timeHH) {
+        ptyCode = parsed_json['fcstValue'];
       }
       // SKY 코드값
       if (parsed_json['category'] == 'SKY' &&
@@ -156,6 +163,14 @@ class HomeScreenState extends State<HomeScreen> {
     // 흐림
     else if (skyCode == '4') {
       skyState = '흐림';
+    }
+    // 비
+    if (ptyCode == '1' || ptyCode == '5') {
+      skyState = '비';
+    }
+    // 눈
+    else if (ptyCode == '3' || ptyCode == '7') {
+      skyState = '눈';
     }
 
     return TodayWeatherScreen(
@@ -203,7 +218,7 @@ class HomeScreenState extends State<HomeScreen> {
         }
       }
     }
-    var skyCode, skyState;
+    var skyCode, ptyCode, skyState;
     var timeHH = DateFormat('HH00')
         .format(DateTime.now().add(const Duration(minutes: 30))); // 30분후
     // 초단기 예보
@@ -212,6 +227,11 @@ class HomeScreenState extends State<HomeScreen> {
     for (int i = 0; i < totalCount3; i++) {
       var parsed_json =
           widget.superShortWeatherData['response']['body']['items']['item'][i];
+      // PTY 코드값
+      if (parsed_json['category'] == 'PTY' &&
+          parsed_json['fcstTime'] == timeHH) {
+        ptyCode = parsed_json['fcstValue'];
+      }
       // SKY 코드값
       if (parsed_json['category'] == 'SKY' &&
           parsed_json['fcstTime'] == timeHH) {
@@ -229,6 +249,14 @@ class HomeScreenState extends State<HomeScreen> {
     // 흐림
     else if (skyCode == '4') {
       skyState = '흐림';
+    }
+    // 비
+    if (ptyCode == '1' || ptyCode == '5') {
+      skyState = '비';
+    }
+    // 눈
+    else if (ptyCode == '3' || ptyCode == '7') {
+      skyState = '눈';
     }
     return HSTodayWeatherScreen(
       addrData: widget.hsaddrData,

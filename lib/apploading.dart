@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:hansungcapstone_bugiweather/screen.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
+import 'CustomRoute.dart';
 import 'NaverMap/mylocation.dart';
 import 'httpnetwork.dart';
 import 'network.dart';
@@ -180,9 +181,13 @@ class _AppLoadingState extends State<AppLoading> {
     final data = await getJsonData();
     final dailyForecasts = data['daily'] as List<dynamic>;
 
+    final Text = await fetchWeatherForecast3();
+    // final dailyForecastText =
+    //     Text['response']['body']['items']['item'][0]['wfSv'];
+
     Navigator.push(
       context,
-      MaterialPageRoute(
+      CustomRoute(
         builder: (context) {
           return HomeScreen(
             addrData: addrData,
@@ -196,6 +201,7 @@ class _AppLoadingState extends State<AppLoading> {
             superShortWeatherData: superShortWeatherData,
             hssuperShortWeatherData: hssuperShortWeatherData,
             dailyWeather: dailyForecasts,
+            // parseWeatherData2: dailyForecastText,
           );
         },
       ),
@@ -309,8 +315,8 @@ class _AppLoadingState extends State<AppLoading> {
             Text(
               '위치 정보 업데이트 중',
               style: TextStyle(
-                fontSize: 20.0,
-                color: Colors.black87,
+                fontSize: 25.0,
+                color: Colors.white54,
               ),
             )
           ],
@@ -318,4 +324,21 @@ class _AppLoadingState extends State<AppLoading> {
       ),
     );
   }
+}
+
+Route _createRoute() {
+  return PageRouteBuilder(
+    pageBuilder: (context, animation, secondaryAnimation) => HomeScreen(),
+    transitionsBuilder: (context, animation, secondaryAnimation, child) {
+      const begin = Offset(1.0, 0.0);
+      const end = Offset.zero;
+      const curve = Curves.ease;
+      var tween = Tween(begin: begin, end: end).chain(CurveTween(curve: curve));
+      var offsetAnimation = animation.drive(tween);
+      return SlideTransition(
+        position: offsetAnimation,
+        child: child,
+      );
+    },
+  );
 }
