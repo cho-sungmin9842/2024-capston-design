@@ -114,14 +114,14 @@ class _backscreen extends State<weekScreen> {
                   Container(
                     alignment: Alignment.center,
                     child: icon[0],
-                    height: 60,
-                    width: 60,
+                    height: 70,
+                    width: 70,
                   ),
-                  SizedBox(width: 10),
+                  SizedBox(width: 30),
                   Container(
                     alignment: Alignment.center,
                     child: Text(
-                      "${mornTempList[0]}°/${eveTempList[0]}°",
+                      "${mornTempList[0]}/${eveTempList[0]}",
                       style: TextStyle(fontSize: 30),
                     ),
                   ),
@@ -147,14 +147,14 @@ class _backscreen extends State<weekScreen> {
                   Container(
                     alignment: Alignment.center,
                     child: icon[1],
-                    height: 60,
-                    width: 60,
+                    height: 70,
+                    width: 70,
                   ),
-                  SizedBox(width: 10),
+                  SizedBox(width: 30),
                   Container(
                     alignment: Alignment.center,
                     child: Text(
-                      "${mornTempList[1]}°/${eveTempList[1]}°",
+                      "${mornTempList[1]}/${eveTempList[1]}",
                       style: TextStyle(fontSize: 30),
                     ),
                   ),
@@ -180,14 +180,14 @@ class _backscreen extends State<weekScreen> {
                   Container(
                     alignment: Alignment.center,
                     child: icon[2],
-                    height: 60,
-                    width: 60,
+                    height: 70,
+                    width: 70,
                   ),
-                  SizedBox(width: 10),
+                  SizedBox(width: 30),
                   Container(
                     alignment: Alignment.center,
                     child: Text(
-                      "${mornTempList[2]}°/${eveTempList[2]}°",
+                      "${mornTempList[2]}/${eveTempList[2]}",
                       style: TextStyle(fontSize: 30),
                     ),
                   ),
@@ -213,14 +213,14 @@ class _backscreen extends State<weekScreen> {
                   Container(
                     alignment: Alignment.center,
                     child: icon[3],
-                    height: 60,
-                    width: 60,
+                    height: 70,
+                    width: 70,
                   ),
-                  SizedBox(width: 10),
+                  SizedBox(width: 30),
                   Container(
                     alignment: Alignment.center,
                     child: Text(
-                      "${mornTempList[3]}°/${eveTempList[3]}°",
+                      "${mornTempList[3]}/${eveTempList[3]}",
                       style: TextStyle(fontSize: 30),
                     ),
                   ),
@@ -246,14 +246,14 @@ class _backscreen extends State<weekScreen> {
                   Container(
                     alignment: Alignment.center,
                     child: icon[4],
-                    height: 60,
-                    width: 60,
+                    height: 70,
+                    width: 70,
                   ),
-                  SizedBox(width: 10),
+                  SizedBox(width: 30),
                   Container(
                     alignment: Alignment.center,
                     child: Text(
-                      "${mornTempList[4]}°/${eveTempList[4]}°",
+                      "${mornTempList[4]}/${eveTempList[4]}",
                       style: TextStyle(fontSize: 30),
                     ),
                   ),
@@ -279,14 +279,14 @@ class _backscreen extends State<weekScreen> {
                   Container(
                     alignment: Alignment.center,
                     child: icon[5],
-                    height: 60,
-                    width: 60,
+                    height: 70,
+                    width: 70,
                   ),
-                  SizedBox(width: 10),
+                  SizedBox(width: 30),
                   Container(
                     alignment: Alignment.center,
                     child: Text(
-                      "${mornTempList[5]}°/${eveTempList[5]}°",
+                      "${mornTempList[5]}/${eveTempList[5]}",
                       style: TextStyle(fontSize: 30),
                     ),
                   ),
@@ -312,14 +312,14 @@ class _backscreen extends State<weekScreen> {
                   Container(
                     alignment: Alignment.center,
                     child: icon[6],
-                    height: 60,
-                    width: 60,
+                    height: 70,
+                    width: 70,
                   ),
-                  SizedBox(width: 10),
+                  SizedBox(width: 30),
                   Container(
                     alignment: Alignment.center,
                     child: Text(
-                      "${mornTempList[6]}°/${eveTempList[6]}°",
+                      "${mornTempList[6]}/${eveTempList[6]}",
                       style: TextStyle(fontSize: 30),
                     ),
                   ),
@@ -328,39 +328,39 @@ class _backscreen extends State<weekScreen> {
                   ),
                 ]),
                 SizedBox(height: 20),
-                // Row(children: [
-                //   SizedBox(width: 30),
-                //   Container(
-                //     width: 95, // Specify the width
-                //     height: 38, // Specify the height
-                //     alignment: Alignment.center,
-                //     child: Text(
-                //       '${weekDays[7]}',
-                //       style: TextStyle(
-                //         fontSize: 25,
-                //       ),
-                //     ),
-                //   ),
-                //   SizedBox(width: 10,),
-                //   Container(
-                //     alignment: Alignment.center,
-                //     //child: Image.asset("images/sunc_1x.png"),
-                //     // child: icon[7],
-                //     height: 70,
-                //     width: 70,
-                //   ),
-                //   SizedBox(width: 30),
-                //   Container(
-                //     alignment: Alignment.center,
-                //     child: Text(
-                //       "${mornTempList[7]}/${eveTempList[7]}",
-                //       style: TextStyle(fontSize: 30),
-                //     ),
-                //   ),
-                //   SizedBox(
-                //     width: 10,
-                //   ),
-                // ]),
+                Row(children: [
+                  SizedBox(width: 30),
+                  Container(
+                    width: 95, // Specify the width
+                    height: 38, // Specify the height
+                    alignment: Alignment.center,
+                    child: Text(
+                      '${weekDays[7]}',
+                      style: TextStyle(
+                        fontSize: 25,
+                      ),
+                    ),
+                  ),
+                  SizedBox(width: 10,),
+                  Container(
+                    alignment: Alignment.center,
+                    //child: Image.asset("images/sunc_1x.png"),
+                    child: icon[7],
+                    height: 70,
+                    width: 70,
+                  ),
+                  SizedBox(width: 30),
+                  Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      "${mornTempList[7]}/${eveTempList[7]}",
+                      style: TextStyle(fontSize: 30),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                ]),
               ],
             ),
           ),
