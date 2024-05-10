@@ -6,6 +6,7 @@ import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:hansungcapstone_bugiweather/favorites.dart';
 import 'package:hansungcapstone_bugiweather/todayweatherscreen.dart';
 import 'package:hansungcapstone_bugiweather/setting.dart';
+import 'dust_screen.dart';
 import 'package:hansungcapstone_bugiweather/weekscreen.dart';
 import 'package:intl/intl.dart';
 import 'NaverMap/mylocation.dart';
@@ -65,6 +66,29 @@ class HomeScreenState extends State<HomeScreen> {
   var hstodayTMN2;
   var hstodayTMX2;
 
+  // 단기 예보 json
+  late final dynamic parseShortTermWeatherData;
+
+  // 초단기 실황 json
+  late final dynamic parseCurrentWeatherData;
+
+  // 초단기 예보 json
+  late final dynamic parseSuperShortWeatherData;
+
+  // 측정소별 실시간 대기오염 정보 json
+  late final dynamic parseAirConditionData;
+
+  // 현재 위치 정보 json
+  late final dynamic parseAddrData;
+
+  final List<Widget> _widgetOptions = <Widget>[
+    TodayWeatherScreen(),
+    WeekWeather(),
+    TodayWeatherScreen(),
+    LoadingMap(),
+    Favorites(),
+    dustScreen(),
+  ];
   // = <Widget>[
   //   TodayWeatherScreen(),
   //   WeekWeather(),
@@ -347,7 +371,7 @@ class HomeScreenState extends State<HomeScreen> {
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month),
-            label: '주간 예보',
+            label: '단기 예보',
           ),
           BottomNavigationBarItem(
               icon: Image.asset("assets/bugi.png", width: 24, height: 24),

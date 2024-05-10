@@ -18,7 +18,7 @@ class Model {
       );
     } else if (condition == 801 && condition <= 802) {
       return Image.asset(
-        'images/sunc_1x.png',
+        'images/sunc_1.png',
       );
     } else if (condition == 803) {
       return Image.asset(
