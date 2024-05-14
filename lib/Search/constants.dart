@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
 const kButtonTextStyle = TextStyle(
-  fontSize: 30.0,
-  fontFamily: 'Inter',
-  fontWeight: FontWeight.w700
+    fontSize: 30.0,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w700
 );
 
 const kTempTextStyleNow = TextStyle(
@@ -17,9 +17,9 @@ const kConditionTextStyleNow = TextStyle(
 );
 
 const kTempTextStyleFore = TextStyle(
-  fontSize: 35.0,
-  fontFamily: 'Inter',
-  fontWeight: FontWeight.w400
+    fontSize: 35.0,
+    fontFamily: 'Inter',
+    fontWeight: FontWeight.w400
 );
 
 const kConditionTextStyleFore = TextStyle(

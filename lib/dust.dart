@@ -400,7 +400,7 @@ class _DustScreenState extends State<DustScreen> {
                               0.091 &&
                               double.parse(widget
                                   .airConditionData['response']
-                              ['body']['items'][0]['o3Value'])/0.151 <=
+                              ['body']['items'][0]['o3Value']) <=
                                   0.15) ? SizedBox(
                             height: 10,
                             child: LinearProgressIndicator(

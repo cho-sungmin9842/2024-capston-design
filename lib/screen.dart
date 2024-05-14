@@ -9,8 +9,8 @@ import 'package:hansungcapstone_bugiweather/setting.dart';
 import 'package:hansungcapstone_bugiweather/weekscreen.dart';
 import 'package:intl/intl.dart';
 import 'NaverMap/mylocation.dart';
+import 'Search/loading_screen.dart';
 import 'dust.dart';
-import 'favorite/loading_screen.dart';
 import 'hstodayweatherscreen.dart';
 import 'httpnetwork.dart';
 import 'loading.dart';
@@ -33,7 +33,9 @@ class HomeScreen extends StatefulWidget {
   final dynamic currenttodayData;
   final dynamic currenthstodayData;
   final dynamic dailyWeather;
-  // final dynamic parseWeatherData2;
+  final dynamic locationWeather;
+  final dynamic locationForecast;
+  final dynamic dailyForecastText;
 
   const HomeScreen({
     super.key,
@@ -48,7 +50,9 @@ class HomeScreen extends StatefulWidget {
     this.superShortWeatherData,
     this.hssuperShortWeatherData,
     this.dailyWeather,
-    // this.parseWeatherData2,
+    this.locationWeather,
+    this.locationForecast,
+    this.dailyForecastText,
   });
 
   @override
@@ -89,12 +93,12 @@ class HomeScreenState extends State<HomeScreen> {
       getTodayWeatherScreen(),
       weekScreen(
         parseWeatherData: widget.dailyWeather,
-        // parseWeatherData2: widget.parseWeatherData2,
+        parseWeatherData2: widget.dailyForecastText,
       ),
       getHSTodayWeatherScreen(),
       LoadingMap(),
       // Favorites(),
-      LoadingScreen(),
+      LocationScreen(locationForecast: widget.locationForecast, locationWeather: widget.locationWeather),
     ];
   }
 
@@ -358,7 +362,7 @@ class HomeScreenState extends State<HomeScreen> {
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.pin_drop_outlined),
-            label: '즐겨찾기',
+            label: '위치검색',
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.cloud),

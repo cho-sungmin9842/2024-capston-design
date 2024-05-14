@@ -155,7 +155,7 @@ class _backscreen extends State<weekScreen> {
                 child: Column(
                   children: [
                     Row(children: [
-                      SizedBox(width: 30),
+                      SizedBox(width: 10),
                       Container(
                         width: 95,
                         height: 38,
@@ -167,14 +167,14 @@ class _backscreen extends State<weekScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 10),
                       Container(
                         alignment: Alignment.center,
                         child: icon[0],
                         height: 70,
                         width: 70,
                       ),
-                      SizedBox(width: 30),
+                      SizedBox(width: 10),
                       Container(
                         alignment: Alignment.center,
                         child: Text(
@@ -182,13 +182,13 @@ class _backscreen extends State<weekScreen> {
                           style: TextStyle(fontSize: 30),
                         ),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      // SizedBox(
+                      //   width: 10,
+                      // ),
                     ]),
                     SizedBox(height: 20),
                     Row(children: [
-                      SizedBox(width: 30),
+                      SizedBox(width: 10),
                       Container(
                         width: 95, // Specify the width
                         height: 38, // Specify the height
@@ -200,14 +200,14 @@ class _backscreen extends State<weekScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 10),
                       Container(
                         alignment: Alignment.center,
                         child: icon[1],
                         height: 70,
                         width: 70,
                       ),
-                      SizedBox(width: 30),
+                      SizedBox(width: 10),
                       Container(
                         alignment: Alignment.center,
                         child: Text(
@@ -215,13 +215,13 @@ class _backscreen extends State<weekScreen> {
                           style: TextStyle(fontSize: 30),
                         ),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      // SizedBox(
+                      //   width: 10,
+                      // ),
                     ]),
                     SizedBox(height: 20),
                     Row(children: [
-                      SizedBox(width: 30),
+                      SizedBox(width: 10),
                       Container(
                         width: 95, // Specify the width
                         height: 38, // Specify the height
@@ -240,7 +240,7 @@ class _backscreen extends State<weekScreen> {
                         height: 70,
                         width: 70,
                       ),
-                      SizedBox(width: 30),
+                      SizedBox(width: 10),
                       Container(
                         alignment: Alignment.center,
                         child: Text(
@@ -248,13 +248,13 @@ class _backscreen extends State<weekScreen> {
                           style: TextStyle(fontSize: 30),
                         ),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      // SizedBox(
+                      //   width: 10,
+                      // ),
                     ]),
                     SizedBox(height: 20),
                     Row(children: [
-                      SizedBox(width: 30),
+                      SizedBox(width: 10),
                       Container(
                         width: 95, // Specify the width
                         height: 38, // Specify the height
@@ -266,14 +266,14 @@ class _backscreen extends State<weekScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 10),
                       Container(
                         alignment: Alignment.center,
                         child: icon[3],
                         height: 70,
                         width: 70,
                       ),
-                      SizedBox(width: 30),
+                      SizedBox(width: 10),
                       Container(
                         alignment: Alignment.center,
                         child: Text(
@@ -281,13 +281,13 @@ class _backscreen extends State<weekScreen> {
                           style: TextStyle(fontSize: 30),
                         ),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      // SizedBox(
+                      //   width: 10,
+                      // ),
                     ]),
                     SizedBox(height: 20),
                     Row(children: [
-                      SizedBox(width: 30),
+                      SizedBox(width: 10),
                       Container(
                         width: 95, // Specify the width
                         height: 38, // Specify the height
@@ -299,14 +299,14 @@ class _backscreen extends State<weekScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 10),
                       Container(
                         alignment: Alignment.center,
                         child: icon[4],
                         height: 70,
                         width: 70,
                       ),
-                      SizedBox(width: 30),
+                      SizedBox(width: 10),
                       Container(
                         alignment: Alignment.center,
                         child: Text(
@@ -314,13 +314,13 @@ class _backscreen extends State<weekScreen> {
                           style: TextStyle(fontSize: 30),
                         ),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      // SizedBox(
+                      //   width: 10,
+                      // ),
                     ]),
                     SizedBox(height: 20),
                     Row(children: [
-                      SizedBox(width: 30),
+                      SizedBox(width: 10),
                       Container(
                         width: 95, // Specify the width
                         height: 38, // Specify the height
@@ -332,14 +332,14 @@ class _backscreen extends State<weekScreen> {
                           ),
                         ),
                       ),
-                      SizedBox(width: 10,),
+                      SizedBox(width: 10),
                       Container(
                         alignment: Alignment.center,
                         child: icon[5],
                         height: 70,
                         width: 70,
                       ),
-                      SizedBox(width: 30),
+                      SizedBox(width: 10),
                       Container(
                         alignment: Alignment.center,
                         child: Text(
@@ -347,42 +347,42 @@ class _backscreen extends State<weekScreen> {
                           style: TextStyle(fontSize: 30),
                         ),
                       ),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      // SizedBox(
+                      //   width: 10,
+                      // ),
                     ]),
                     SizedBox(height: 20),
                     Row(children: [
-                      SizedBox(width: 30),
-                      Container(
-                        width: 95, // Specify the width
-                        height: 38, // Specify the height
-                        alignment: Alignment.center,
-                        child: Text(
-                          '${weekDays[6]}',
-                          style: TextStyle(
-                            fontSize: 25,
-                          ),
-                        ),
-                      ),
-                      SizedBox(width: 10,),
-                      Container(
-                        alignment: Alignment.center,
-                        child: icon[6],
-                        height: 70,
-                        width: 70,
-                      ),
-                      SizedBox(width: 30),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "${mornTempList[6]}°/${eveTempList[6]}°",
-                          style: TextStyle(fontSize: 30),
-                        ),
-                      ),
-                      SizedBox(
-                        width: 10,
-                      ),
+                      // SizedBox(width: 10),
+                      // Container(
+                      //   width: 95, // Specify the width
+                      //   height: 38, // Specify the height
+                      //   alignment: Alignment.center,
+                      //   child: Text(
+                      //     '${weekDays[6]}',
+                      //     style: TextStyle(
+                      //       fontSize: 25,
+                      //     ),
+                      //   ),
+                      // ),
+                      // SizedBox(width: 10,),
+                      // Container(
+                      //   alignment: Alignment.center,
+                      //   child: icon[6],
+                      //   height: 70,
+                      //   width: 70,
+                      // ),
+                      // SizedBox(width: 10),
+                      // Container(
+                      //   alignment: Alignment.center,
+                      //   child: Text(
+                      //     "${mornTempList[6]}°/${eveTempList[6]}°",
+                      //     style: TextStyle(fontSize: 30),
+                      //   ),
+                      // ),
+                      // SizedBox(
+                      //   width: 10,
+                      // ),
                     ]),
                     SizedBox(height: 20),
                   ],

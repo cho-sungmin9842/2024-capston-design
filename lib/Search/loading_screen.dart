@@ -1,9 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:hansungcapstone_bugiweather/favorite/weather.dart';
-
-import 'city_screen.dart';
-import 'constants.dart';
+import 'package:hansungcapstone_bugiweather/Search/weather.dart';
+import 'package:hansungcapstone_bugiweather/Search/constants.dart';
+import 'package:hansungcapstone_bugiweather/Search/city_screen.dart';
 
 class LocationScreen extends StatefulWidget {
   final locationWeather;
@@ -66,7 +65,7 @@ class _LocationScreenState extends State<LocationScreen> {
         forecastIcon1= "🫧";
         forecastIcon2 = "🫧";
         forecastIcon3 = "🫧";
-      return;
+        return;
       }
 
       double foretemp1= forecastData['list'][0]["main"]["temp"];
@@ -180,11 +179,11 @@ class _LocationScreenState extends State<LocationScreen> {
                   Column(
                     children: [
                       Text(
-                          '$foreTemp1°',
+                        '$foreTemp1°',
                         style: kTempTextStyleFore,
                       ),
                       Text(
-                          forecastIcon1,
+                        forecastIcon1,
                         style: kConditionTextStyleFore,
                       )
                     ],

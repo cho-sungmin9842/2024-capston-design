@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:hansungcapstone_bugiweather/CustomRoute.dart';
 import 'package:hansungcapstone_bugiweather/screen.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import 'CustomRoute.dart';
 import 'NaverMap/mylocation.dart';
+import 'Search/weather.dart';
 import 'httpnetwork.dart';
 import 'network.dart';
 
@@ -57,11 +58,11 @@ class _AppLoadingState extends State<AppLoading> {
     var baseDate_2am;
     var baseTime_2am;
 
-    print("xCoordinate=$xCoordinate");
+    /*print("xCoordinate=$xCoordinate");
     print("yCoordinate=$yCoordinate");
     print("현재 날짜 및 시간=${DateTime.now()}");
     print("지금은 몇 시 = ${DateTime.now().hour}");
-    print("지금은 몇 분 = ${DateTime.now().minute}");
+    print("지금은 몇 분 = ${DateTime.now().minute}");*/
 
     //카카오맵 역지오코딩
     var kakaoGeoUrl = Uri.parse(
@@ -84,33 +85,34 @@ class _AppLoadingState extends State<AppLoading> {
       baseDate_2am = getSystemTime();
       baseTime_2am = "0200";
     }
-    print("baseDate_2am=$baseDate_2am");
+    /*print("baseDate_2am=$baseDate_2am");
     print("baseTime_2am=$baseTime_2am");
-
+*/
     setCurrentBase();
 
-    print("baseDate=${baseDate}");
-    print("baseTime=${baseTime}");
+    /*print("baseDate=${baseDate}");
+    print("baseTime=${baseTime}");*/
 
     // 단기 예보(오늘 최저 기온)
     String today2am =
         'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getVilageFcst?serviceKey=$apiKey&numOfRows=1000&pageNo=1&base_date=$baseDate_2am&base_time=$baseTime_2am&nx=$xCoordinate&ny=$yCoordinate&dataType=JSON';
 
     currentWeatherDate();
-    print("currentBaseDate=${currentBaseDate}");
-    print("currentBaseTime=${currentBaseTime}");
+    /*print("currentBaseDate=${currentBaseDate}");
+    print("currentBaseTime=${currentBaseTime}");*/
     // 현재 날씨(초단기 실황)
     String currentWeather =
         'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtNcst?serviceKey=$apiKey&numOfRows=10&pageNo=1&base_date=$currentBaseDate&base_time=$currentBaseTime&nx=$xCoordinate&ny=$yCoordinate&dataType=JSON';
 
     superShortWeatherDate();
-    print("sswBaseDate=$sswBaseDate");
-    print("sswBaseTime=$sswBaseTime");
+    /*print("sswBaseDate=$sswBaseDate");
+    print("sswBaseTime=$sswBaseTime");*/
+
     // 초단기 예보
     String superShortWeather =
         'https://apis.data.go.kr/1360000/VilageFcstInfoService_2.0/getUltraSrtFcst?serviceKey=$apiKey&numOfRows=60&pageNo=1&base_date=$sswBaseDate&base_time=$sswBaseTime&nx=$xCoordinate&ny=$yCoordinate&dataType=JSON';
     HttpNetwork network =
-        HttpNetwork(today2am, "", currentWeather, superShortWeather, "");
+    HttpNetwork(today2am, "", currentWeather, superShortWeather, "");
 
     // 오늘 최저 기온 json 응답 데이터
     var today2amData = await network.getToday2amData();
@@ -178,12 +180,14 @@ class _AppLoadingState extends State<AppLoading> {
     // 한성대에서 금일 현재 시간부로부터 단기 예보 데이터
     var currenthstodayData = await network.getToday2amData();
 
+    //
     final data = await getJsonData();
     final dailyForecasts = data['daily'] as List<dynamic>;
+    var weatherData = await WeatherModel().getLocationWeather();
+    var forecastData = await WeatherModel().getLocationForecast();
 
     final Text = await fetchWeatherForecast3();
-    // final dailyForecastText =
-    //     Text['response']['body']['items']['item'][0]['wfSv'];
+    final dailyForecastText = Text['response']['body']['items']['item'][0]['wfSv'];
 
     Navigator.push(
       context,
@@ -201,7 +205,9 @@ class _AppLoadingState extends State<AppLoading> {
             superShortWeatherData: superShortWeatherData,
             hssuperShortWeatherData: hssuperShortWeatherData,
             dailyWeather: dailyForecasts,
-            // parseWeatherData2: dailyForecastText,
+            dailyForecastText: dailyForecastText,
+            locationWeather: weatherData,
+            locationForecast: forecastData,
           );
         },
       ),
@@ -299,33 +305,44 @@ class _AppLoadingState extends State<AppLoading> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.lightBlueAccent,
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SpinKitWave(
-              color: Colors.white,
-              size: 60.0,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              '위치 정보 업데이트 중',
-              style: TextStyle(
-                fontSize: 25.0,
-                color: Colors.white54,
+    return Scaffold(
+      //backgroundColor: Colors.lightBlueAccent,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: <Color>[
+              Color(0xffbfd5ff),
+              Color(0xff74d5ff),
+            ],
+          ),
+        ),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              SpinKitWave(
+                color: Colors.white,
+                size: 60.0,
               ),
-            )
-          ],
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                '위치 정보 업데이트 중',
+                style: TextStyle(
+                  fontSize: 25.0,
+                  color: Colors.white54,
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
 Route _createRoute() {
   return PageRouteBuilder(
     pageBuilder: (context, animation, secondaryAnimation) => HomeScreen(),
