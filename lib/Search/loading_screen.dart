@@ -4,10 +4,13 @@ import 'package:hansungcapstone_bugiweather/Search/weather.dart';
 import 'package:hansungcapstone_bugiweather/Search/constants.dart';
 import 'package:hansungcapstone_bugiweather/Search/city_screen.dart';
 
+import '../SkyStateImg.dart';
+
 class LocationScreen extends StatefulWidget {
   final locationWeather;
   final locationForecast;
-  LocationScreen({this.locationWeather, this.locationForecast});
+  final skyStateCode;
+  LocationScreen({this.locationWeather, this.locationForecast, this.skyStateCode});
   @override
   _LocationScreenState createState() => _LocationScreenState();
 }
@@ -33,11 +36,13 @@ class _LocationScreenState extends State<LocationScreen> {
   late DateTime stamp2;
   late DateTime stamp3; // 기상 예보 발표 시각
 
+  String skyState = "";
   @override
   void initState() {
     super.initState();
     updateUIW(widget.locationWeather);
     updateUIF(widget.locationForecast);
+    skyState=getSkyState(widget.skyStateCode);
   }
 
   void updateUIW(var weatherData) {
@@ -98,12 +103,11 @@ class _LocationScreenState extends State<LocationScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-                begin: Alignment(0.0,-1.0),
-                end: Alignment(0,1),
-                colors: [Color(0xff73d5ff), Color(0xffbed5de)]
-            )
+        decoration: BoxDecoration(
+          image: DecorationImage(
+            image: AssetImage(skyState),
+            fit: BoxFit.cover,
+          ),
         ),
 
         child: SafeArea(

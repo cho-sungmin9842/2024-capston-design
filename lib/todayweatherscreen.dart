@@ -13,6 +13,7 @@ import 'package:intl/intl.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:http/http.dart' as http;
 import 'NaverMap/mylocation.dart';
+import 'SkyStateImg.dart';
 
 class TodayWeatherScreen extends StatefulWidget {
   final dynamic addrData;
@@ -51,17 +52,7 @@ class TodayWeatherState extends State<TodayWeatherScreen>
     initializeDateFormatting();
     daysFormat = DateFormat('E', 'ko_KR'); //요일 한글 표현
 
-    switch (widget.skyState) {
-      case "맑음":
-        skyStateUrl = "assets/Clear.png";
-      case "구름 많음":
-        skyStateUrl = "assets/Clouds.png";
-      case "흐림":
-        skyStateUrl = "assets/background_cloudy.png";
-
-      default :
-        skyStateUrl="assets/backimg.png";
-    }
+    skyStateUrl=getSkyState(widget.skyState);
     _animationController = AnimationController(
       vsync: this,
       duration: Duration(seconds: 1),

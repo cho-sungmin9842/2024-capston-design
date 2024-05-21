@@ -49,15 +49,14 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen>
     daysFormat = DateFormat('E', 'ko_KR'); //요일 한글 표현
 
     switch (widget.skyState) {
-      case "맑음":
-        skyStateUrl = "assets/Clear.png";
-      case "구름 많음":
-        skyStateUrl = "assets/Clouds.png";
-      case "흐림":
-        skyStateUrl = "assets/background_cloudy.png";
-
-      default:
-        skyStateUrl = "assets/backimg.png";
+      case "맑음" :
+        skyStateUrl="assets/Clear.png";
+      case "흐림" :
+        skyStateUrl="assets/Haze.png";
+      case "구름 많음" :
+        skyStateUrl="assets/Clouds.png";
+      default :
+        skyStateUrl="assets/backimg.png";
     }
     _animationController = AnimationController(
       vsync: this,

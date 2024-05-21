@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:hansungcapstone_bugiweather/weekscreen.dart';
 import 'NaverMap/mylocation.dart';
 import 'package:hansungcapstone_bugiweather/network.dart' as network;
 
@@ -33,9 +32,9 @@ class _WeekWeatherState extends State<WeekWeather> {
     final data = await network.getJsonData();
     final dailyForecasts = data['daily'] as List<dynamic>;
 
-    Navigator.push(context, MaterialPageRoute(builder: (context){
-      return weekScreen(parseWeatherData: dailyForecasts,);
-    }));
+    // Navigator.push(context, MaterialPageRoute(builder: (context){
+      // return weekScreen(parseWeatherData: dailyForecasts,);
+    // }));
   }
 
   @override

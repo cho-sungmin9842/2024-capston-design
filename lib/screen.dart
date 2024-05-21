@@ -68,6 +68,7 @@ class HomeScreenState extends State<HomeScreen> {
   var todayTMX2;
   var hstodayTMN2;
   var hstodayTMX2;
+  var skyState;
 
   // = <Widget>[
   //   TodayWeatherScreen(),
@@ -94,11 +95,16 @@ class HomeScreenState extends State<HomeScreen> {
       weekScreen(
         parseWeatherData: widget.dailyWeather,
         parseWeatherData2: widget.dailyForecastText,
+        skyStateCode: skyState,
       ),
       getHSTodayWeatherScreen(),
       LoadingMap(),
       // Favorites(),
-      LocationScreen(locationForecast: widget.locationForecast, locationWeather: widget.locationWeather),
+      LocationScreen(
+        locationForecast: widget.locationForecast,
+        locationWeather: widget.locationWeather,
+        skyStateCode: skyState,
+      ),
     ];
   }
 
@@ -136,7 +142,7 @@ class HomeScreenState extends State<HomeScreen> {
         }
       }
     }
-    var skyCode, ptyCode, skyState;
+    var skyCode, ptyCode;
     var timeHH = DateFormat('HH00')
         .format(DateTime.now().add(const Duration(minutes: 30))); // 30분후
     // 초단기 예보
@@ -222,7 +228,7 @@ class HomeScreenState extends State<HomeScreen> {
         }
       }
     }
-    var skyCode, ptyCode, skyState;
+    var skyCode, ptyCode;
     var timeHH = DateFormat('HH00')
         .format(DateTime.now().add(const Duration(minutes: 30))); // 30분후
     // 초단기 예보
@@ -319,7 +325,10 @@ class HomeScreenState extends State<HomeScreen> {
 
     // 측정소별 실시간 측정 정보 조회 json 응답 데이터
     var airConditionData = await network.getAirConditionData();
-    _widgetOptions.add(DustScreen(airConditionData: airConditionData));
+    _widgetOptions.add(DustScreen(
+      airConditionData: airConditionData,
+      skyStateCode: skyState,
+    ));
   }
 
   @override
@@ -341,6 +350,15 @@ class HomeScreenState extends State<HomeScreen> {
             );
           },
           iconSize: 30.0,
+        ),
+        flexibleSpace: new Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: getCol(),
+            ),
+          ),
         ),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -378,5 +396,14 @@ class HomeScreenState extends State<HomeScreen> {
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
     );
+  }
+  List<Color> getCol () {
+    if (skyState=="맑음")
+      return [Color(0xffbfd5ff), Color(0xffA1D7F9)];
+    else if (skyState=="흐림")
+      return [Color(0xff466372), Color(0xff142739)];
+    else if (skyState=="구름 많음")
+      return [Color(0xff61717B), Color(0xff567A98).withOpacity(0.85)];
+    return [Colors.white];
   }
 }

@@ -1,18 +1,21 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:hansungcapstone_bugiweather/NaverMap/font.dart';
+import 'package:hansungcapstone_bugiweather/SkyStateImg.dart';
 import 'model.dart';
 
 class weekScreen extends StatefulWidget {
-  weekScreen({this.parseWeatherData,this.parseWeatherData2});
+  weekScreen({this.parseWeatherData, this.parseWeatherData2, required this.skyStateCode});
 
   final dynamic parseWeatherData;
   final dynamic parseWeatherData2;
+  final String skyStateCode;
 
   @override
   State<weekScreen> createState() => _backscreen();
 }
 
-class _backscreen extends State<weekScreen> {
+class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin {
   Model model = Model();
   final Color backgroundColor = Colors.blue;
 
@@ -25,12 +28,27 @@ class _backscreen extends State<weekScreen> {
   String? text;
   String? forestText;
 
+  String skyState="";
+
+  late AnimationController _animationController;
+  late Animation<double> _animation;
+
   @override
   void initState() {
     super.initState();
     //getLocation();
     updateData(widget.parseWeatherData);
     updateData2(widget.parseWeatherData2);
+    skyState=getSkyState(widget.skyStateCode);
+    _animationController = AnimationController(
+      vsync: this,
+      duration: Duration(seconds: 1),
+    );
+    _animation = Tween<double>(
+      begin: 0,
+      end: 1,
+    ).animate(_animationController);
+    _animationController.forward();
   }
 
   void updateData(dynamic weatherData) {
@@ -53,12 +71,13 @@ class _backscreen extends State<weekScreen> {
       // print(condition);
       Widget? weatherIcon = model.getWeatherIcon(condition);
       if (weatherIcon != null) {
-        print(condition);
+        //print(condition);
         icon.add(weatherIcon); // Only add if not null.
       }
     }
+    print(weatherData[0]['weather'][0]['id']);
+    skyState=getSkyState(weatherData[0]['weather'][0]['id'].toString());
   }
-
   void updateData2(dynamic weatherTextdata){
     text = weatherTextdata;
 
@@ -95,301 +114,329 @@ class _backscreen extends State<weekScreen> {
     return weekDays[weekday - 1]; // Dart에서 주의 요일은 1부터 시작합니다.
   }
 
+
   int kelvinToCelsius(double kelvin) {
     return (kelvin - 273.15).round();
   }
 
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   elevation: 0.0,
-      // ),
       body: Stack(children: [
         Container(
           decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topLeft,
-              end: Alignment.bottomRight,
-              colors: [
-                Color(0xFF74D5FF),
-                Color(0xFFBFD5FF),
-              ],
-            ),
+              image: DecorationImage(
+                  image: AssetImage(skyState) ,fit: BoxFit.cover
+              )
           ),
         ),
         SingleChildScrollView(
-          child: Column(
-            children: <Widget>[
-              Container(
-                margin: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20), // Rounded corners
-                  color: Colors.black.withOpacity(0.2),
-                ),
-                padding: EdgeInsets.all(16.0),
-                child: SizedBox(
-                  height: 230,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        Text(
-                          '$forestText',
-                          style: TextStyle(
-                            fontSize: 20,
+          child: FadeTransition(
+            opacity: _animation,
+            child: Column(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20), // Rounded corners
+                    color: Colors.black.withOpacity(0.2),
+                  ),
+                  padding: EdgeInsets.all(16.0),
+                  child: SizedBox(
+                    height: 230,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: [
+                          Text(
+                            '$forestText',
+                            style: SubStyle(),
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),
-              ),
-              Container(
-                margin: EdgeInsets.all(10),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20), // Rounded corners
-                  color: Colors.black.withOpacity(0.2),
+                Container(
+                    width: 380,
+                    child: Divider(
+                      thickness: 1,
+                      color: Colors.grey.shade400,
+                    )
                 ),
-                child: Column(
-                  children: [
-                    Row(children: [
-                      SizedBox(width: 10),
+                Container(
+                  margin: EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20), // Rounded corners
+                    color: Colors.black.withOpacity(0.2),
+                  ),
+                  child: Column(
+                    children: [
                       Container(
-                        width: 95,
-                        height: 38,
-                        alignment: Alignment.center,
-                        child: Text(
-                          '${weekDays[0]}',
-                          style: TextStyle(
-                            fontSize: 25,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        margin: EdgeInsets.all(10),
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: Row(
+                            children: [
+                              SizedBox(width: 10),
+                              Container(
+                                width: 95,
+                                height: 38,
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                    '${weekDays[0]}',
+                                    style: Title54Style()
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Container(
+                                alignment: Alignment.center,
+                                child: icon[0],
+                                height: 70,
+                                width: 70,
+                              ),
+                              SizedBox(width: 10),
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "${mornTempList[0]}°/${eveTempList[0]}°",
+                                  style: SubStyle(),
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                            ]),
+                      ),
+                      //SizedBox(height: 10),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        margin: EdgeInsets.all(10),
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: Row(
+                            children: [
+                              SizedBox(width: 10),
+                              Container(
+                                width: 95, // Specify the width
+                                height: 38, // Specify the height
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                    '${weekDays[1]}',
+                                    style: Title54Style()
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                              Container(
+                                alignment: Alignment.center,
+                                child: icon[1],
+                                height: 70,
+                                width: 70,
+                              ),
+                              SizedBox(width: 10),
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "${mornTempList[1]}°/${eveTempList[1]}°",
+                                  style: Title54Style(),
+                                ),
+                              ),
+                              SizedBox(width: 10),
+                            ]),
+                      ),
+                      //SizedBox(height: 20),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        margin: EdgeInsets.all(10),
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: Row(children: [
+                          SizedBox(width: 10),
+                          Container(
+                            width: 95, // Specify the width
+                            height: 38, // Specify the height
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                                '${weekDays[2]}',
+                                style: Title54Style()
+                            ),
                           ),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        alignment: Alignment.center,
-                        child: icon[0],
-                        height: 70,
-                        width: 70,
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "${mornTempList[0]}°/${eveTempList[0]}°",
-                          style: TextStyle(fontSize: 30),
-                        ),
-                      ),
-                      // SizedBox(
-                      //   width: 10,
-                      // ),
-                    ]),
-                    SizedBox(height: 20),
-                    Row(children: [
-                      SizedBox(width: 10),
-                      Container(
-                        width: 95, // Specify the width
-                        height: 38, // Specify the height
-                        alignment: Alignment.center,
-                        child: Text(
-                          '${weekDays[1]}',
-                          style: TextStyle(
-                            fontSize: 25,
+                          SizedBox(width: 10),
+                          Container(
+                            alignment: Alignment.center,
+                            child: icon[2],
+                            height: 70,
+                            width: 70,
                           ),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        alignment: Alignment.center,
-                        child: icon[1],
-                        height: 70,
-                        width: 70,
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "${mornTempList[1]}°/${eveTempList[1]}°",
-                          style: TextStyle(fontSize: 30),
-                        ),
-                      ),
-                      // SizedBox(
-                      //   width: 10,
-                      // ),
-                    ]),
-                    SizedBox(height: 20),
-                    Row(children: [
-                      SizedBox(width: 10),
-                      Container(
-                        width: 95, // Specify the width
-                        height: 38, // Specify the height
-                        alignment: Alignment.center,
-                        child: Text(
-                          '${weekDays[2]}',
-                          style: TextStyle(
-                            fontSize: 25,
+                          SizedBox(width: 10),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "${mornTempList[2]}°/${eveTempList[2]}°",
+                              style: Title54Style(),
+                            ),
                           ),
+                          SizedBox(width: 10),
+                        ]),
+                      ),
+                      //SizedBox(height: 20),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(10),
                         ),
-                      ),
-                      SizedBox(width: 10,),
-                      Container(
-                        alignment: Alignment.center,
-                        child: icon[2],
-                        height: 70,
-                        width: 70,
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "${mornTempList[2]}°/${eveTempList[2]}°",
-                          style: TextStyle(fontSize: 30),
-                        ),
-                      ),
-                      // SizedBox(
-                      //   width: 10,
-                      // ),
-                    ]),
-                    SizedBox(height: 20),
-                    Row(children: [
-                      SizedBox(width: 10),
-                      Container(
-                        width: 95, // Specify the width
-                        height: 38, // Specify the height
-                        alignment: Alignment.center,
-                        child: Text(
-                          '${weekDays[3]}',
-                          style: TextStyle(
-                            fontSize: 25,
+                        margin: EdgeInsets.all(10),
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: Row(children: [
+                          SizedBox(width: 10),
+                          Container(
+                            width: 95, // Specify the width
+                            height: 38, // Specify the height
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                                '${weekDays[3]}',
+                                style: Title54Style()
+                            ),
                           ),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        alignment: Alignment.center,
-                        child: icon[3],
-                        height: 70,
-                        width: 70,
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "${mornTempList[3]}°/${eveTempList[3]}°",
-                          style: TextStyle(fontSize: 30),
-                        ),
-                      ),
-                      // SizedBox(
-                      //   width: 10,
-                      // ),
-                    ]),
-                    SizedBox(height: 20),
-                    Row(children: [
-                      SizedBox(width: 10),
-                      Container(
-                        width: 95, // Specify the width
-                        height: 38, // Specify the height
-                        alignment: Alignment.center,
-                        child: Text(
-                          '${weekDays[4]}',
-                          style: TextStyle(
-                            fontSize: 25,
+                          SizedBox(width: 10),
+                          Container(
+                            alignment: Alignment.center,
+                            child: icon[3],
+                            height: 70,
+                            width: 70,
                           ),
-                        ),
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        alignment: Alignment.center,
-                        child: icon[4],
-                        height: 70,
-                        width: 70,
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "${mornTempList[4]}°/${eveTempList[4]}°",
-                          style: TextStyle(fontSize: 30),
-                        ),
-                      ),
-                      // SizedBox(
-                      //   width: 10,
-                      // ),
-                    ]),
-                    SizedBox(height: 20),
-                    Row(children: [
-                      SizedBox(width: 10),
-                      Container(
-                        width: 95, // Specify the width
-                        height: 38, // Specify the height
-                        alignment: Alignment.center,
-                        child: Text(
-                          '${weekDays[5]}',
-                          style: TextStyle(
-                            fontSize: 25,
+                          SizedBox(width: 10),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "${mornTempList[3]}°/${eveTempList[3]}°",
+                              style: Title54Style(),
+                            ),
                           ),
-                        ),
+                          SizedBox(width: 10),
+                        ]),
                       ),
-                      SizedBox(width: 10),
+                      //SizedBox(height: 20),
                       Container(
-                        alignment: Alignment.center,
-                        child: icon[5],
-                        height: 70,
-                        width: 70,
-                      ),
-                      SizedBox(width: 10),
-                      Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "${mornTempList[5]}°/${eveTempList[5]}°",
-                          style: TextStyle(fontSize: 30),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(10),
                         ),
+                        margin: EdgeInsets.all(10),
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: Row(children: [
+                          SizedBox(width: 10),
+                          Container(
+                            width: 95, // Specify the width
+                            height: 38, // Specify the height
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                                '${weekDays[4]}',
+                                style: Title54Style()
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            alignment: Alignment.center,
+                            child: icon[4],
+                            height: 70,
+                            width: 70,
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                                "${mornTempList[4]}°/${eveTempList[4]}°",
+                                style: Title54Style()
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                        ]),
                       ),
-                      // SizedBox(
-                      //   width: 10,
-                      // ),
-                    ]),
-                    SizedBox(height: 20),
-                    Row(children: [
-                      // SizedBox(width: 10),
-                      // Container(
-                      //   width: 95, // Specify the width
-                      //   height: 38, // Specify the height
-                      //   alignment: Alignment.center,
-                      //   child: Text(
-                      //     '${weekDays[6]}',
-                      //     style: TextStyle(
-                      //       fontSize: 25,
-                      //     ),
-                      //   ),
-                      // ),
-                      // SizedBox(width: 10,),
-                      // Container(
-                      //   alignment: Alignment.center,
-                      //   child: icon[6],
-                      //   height: 70,
-                      //   width: 70,
-                      // ),
-                      // SizedBox(width: 10),
-                      // Container(
-                      //   alignment: Alignment.center,
-                      //   child: Text(
-                      //     "${mornTempList[6]}°/${eveTempList[6]}°",
-                      //     style: TextStyle(fontSize: 30),
-                      //   ),
-                      // ),
-                      // SizedBox(
-                      //   width: 10,
-                      // ),
-                    ]),
-                    SizedBox(height: 20),
-                  ],
+                      //SizedBox(height: 20),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        margin: EdgeInsets.all(10),
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: Row(children: [
+                          SizedBox(width: 10),
+                          Container(
+                            width: 100, // Specify the width
+                            height: 38, // Specify the height
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                                '${weekDays[5]}',
+                                style: Title54Style()
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            alignment: Alignment.center,
+                            child: icon[5],
+                            height: 70,
+                            width: 70,
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "${mornTempList[5]}°/${eveTempList[5]}°",
+                              style: Title54Style(),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                        ]),
+                      ),
+                      //SizedBox(height: 20),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        margin: EdgeInsets.all(10),
+                        padding: EdgeInsets.fromLTRB(0, 5, 0, 5),
+                        child: Row(children: [
+                          SizedBox(width: 10),
+                          Container(
+                            width: 100, // Specify the width
+                            height: 38, // Specify the height
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              '${weekDays[6]}',
+                              style: Title54Style(),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            alignment: Alignment.center,
+                            child: icon[6],
+                            height: 70,
+                            width: 70,
+                          ),
+                          SizedBox(width: 10),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "${mornTempList[6]}°/${eveTempList[6]}°",
+                              style: Title54Style(),
+                            ),
+                          ),
+                          SizedBox(width: 10),
+                        ]),
+                      ),
+                      SizedBox(height: 20),
+                    ],
+                  ),
                 ),
-              ),
-              SizedBox(height: 20),
-            ],
+                SizedBox(height: 20),
+              ],
+            ),
           ),
         )
       ]),
