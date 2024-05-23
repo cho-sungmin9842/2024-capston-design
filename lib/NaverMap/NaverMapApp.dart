@@ -99,7 +99,7 @@ class _NaverMapAppState extends State<NaverMapApp> {
           ),
           bottomNavigationBar: BottomAppBar(
             child: TextButton(
-              child: Text("뒤로가기", style: backStyle(),),
+              child: Text("뒤로가기", style: SubStyle(),),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -137,7 +137,7 @@ class _NaverMapAppState extends State<NaverMapApp> {
               controller.addOverlay(markerHansung);
 
               //서울 시내
-              final logoGangnam = await NOverlayImage.fromAssetImage("images/sun_1x.png");
+              final logoGangnam = getImage(conditionList[0]);
               final markerGangnam = NMarker(id: 'gangnam', position: NLatLng(37.4967, 127.0630), icon: logoGangnam) // 강남
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
@@ -147,7 +147,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "강남구", temp: tempList[0], feelsLike: feelsLikeList[0], humidity: humidityList[0],
                         minTemp: minTempList[0], maxTemp: maxTempList[0], condition: conditionList[0] )
                 );
-              final markerGangdong = NMarker(id: 'gangdong', position: NLatLng(37.5504, 127.1470)) // 강동
+              final logoGangdong = getImage(conditionList[1]);
+              final markerGangdong = NMarker(id: 'gangdong', position: NLatLng(37.5504, 127.1470), icon: logoGangdong) // 강동
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -156,7 +157,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "강동구", temp: tempList[1], feelsLike: feelsLikeList[1], humidity: humidityList[1],
                         minTemp: minTempList[1], maxTemp: maxTempList[1], condition: conditionList[1] )
                 );
-              final markerGangbuk = NMarker(id: 'gangbuk', position: NLatLng(37.6435, 127.0112)) // 강북
+              final logoGangbuk = getImage(conditionList[2]);
+              final markerGangbuk = NMarker(id: 'gangbuk', position: NLatLng(37.6435, 127.0112), icon: logoGangbuk) // 강북
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -165,7 +167,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "강북구", temp: tempList[2], feelsLike: feelsLikeList[2], humidity: humidityList[2],
                         minTemp: minTempList[2], maxTemp: maxTempList[2], condition: conditionList[2] )
                 );
-              final markerGangseo = NMarker(id: 'gangseo', position: NLatLng(37.5612, 126.8228)) // 강서
+              final logoGangseo = getImage(conditionList[3]);
+              final markerGangseo = NMarker(id: 'gangseo', position: NLatLng(37.5612, 126.8228), icon: logoGangseo) // 강서
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -174,7 +177,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "강서구", temp: tempList[3], feelsLike: feelsLikeList[3], humidity: humidityList[3],
                         minTemp: minTempList[3], maxTemp: maxTempList[3], condition: conditionList[3] )
                 );
-              final markerGwanak = NMarker(id: 'gwanak', position: NLatLng(37.4674, 126.9453)) // 관악
+              final logoGwanak = getImage(conditionList[4]);
+              final markerGwanak = NMarker(id: 'gwanak', position: NLatLng(37.4674, 126.9453), icon: logoGwanak) // 관악
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -183,7 +187,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "관악구", temp: tempList[4], feelsLike: feelsLikeList[4], humidity: humidityList[4],
                         minTemp: minTempList[4], maxTemp: maxTempList[4], condition: conditionList[4] )
                 );
-              final markerGwangjin = NMarker(id: 'gwangjin', position: NLatLng(37.5467, 127.0858)) // 광진
+              final logoGwangjin = getImage(conditionList[5]);
+              final markerGwangjin = NMarker(id: 'gwangjin', position: NLatLng(37.5467, 127.0858), icon: logoGwangjin) // 광진
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -192,7 +197,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "광진구", temp: tempList[5], feelsLike: feelsLikeList[5], humidity: humidityList[5],
                         minTemp: minTempList[5], maxTemp: maxTempList[5], condition: conditionList[5] )
                 );
-              final markerGuro = NMarker(id: 'guro', position: NLatLng(37.4944, 126.8563)) // 구로
+              final logoGuro = getImage(conditionList[6]);
+              final markerGuro = NMarker(id: 'guro', position: NLatLng(37.4944, 126.8563), icon:logoGuro) // 구로
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -201,7 +207,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "구로구", temp: tempList[6], feelsLike: feelsLikeList[6], humidity: humidityList[6],
                         minTemp: minTempList[6], maxTemp: maxTempList[6], condition: conditionList[6] )
                 );
-              final markerGeumcheon = NMarker(id: 'geumcheon', position: NLatLng(37.4606, 126.9008)) // 금천
+              final logoGeumchoen = getImage(conditionList[7]);
+              final markerGeumcheon = NMarker(id: 'geumcheon', position: NLatLng(37.4606, 126.9008), icon: logoGeumchoen) // 금천
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -210,7 +217,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "금천구", temp: tempList[7], feelsLike: feelsLikeList[7], humidity: humidityList[7],
                         minTemp: minTempList[7], maxTemp: maxTempList[7], condition: conditionList[7] )
                 );
-              final markerNowon = NMarker(id: 'Nowon', position: NLatLng(37.6525, 127.0750)) // 노원
+              final logoNowon = getImage(conditionList[8]);
+              final markerNowon = NMarker(id: 'Nowon', position: NLatLng(37.6525, 127.0750), icon: logoNowon) // 노원
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -218,7 +226,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "노원구", temp: tempList[8], feelsLike: feelsLikeList[8], humidity: humidityList[8],
                         minTemp: minTempList[8], maxTemp: maxTempList[8], condition: conditionList[8] )
                 );
-              final markerDobong = NMarker(id: 'dobong', position: NLatLng(37.6691, 127.0324)) // 도봉
+              final logoDobong = getImage(conditionList[9]);
+              final markerDobong = NMarker(id: 'dobong', position: NLatLng(37.6691, 127.0324), icon: logoDobong) // 도봉
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -227,7 +236,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "도봉구", temp: tempList[9], feelsLike: feelsLikeList[9], humidity: humidityList[9],
                         minTemp: minTempList[9], maxTemp: maxTempList[9], condition: conditionList[9] )
                 );
-              final markerDongdaemun = NMarker(id: 'dongdaemun', position: NLatLng(37.5820, 127.0548)) // 동대문
+              final logoDongdaemun = getImage(conditionList[10]);
+              final markerDongdaemun = NMarker(id: 'dongdaemun', position: NLatLng(37.5820, 127.0548), icon: logoDongdaemun) // 동대문
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -236,7 +246,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "동대문구", temp: tempList[10], feelsLike: feelsLikeList[10], humidity: humidityList[10],
                         minTemp: minTempList[10], maxTemp: maxTempList[10], condition: conditionList[10] )
                 );
-              final markerDongjak = NMarker(id: 'dongjak', position: NLatLng(37.4989, 126.9516)) // 동작
+              final logoDongjak = getImage(conditionList[11]);
+              final markerDongjak = NMarker(id: 'dongjak', position: NLatLng(37.4989, 126.9516), icon: logoDongjak) // 동작
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -245,7 +256,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "동작구", temp: tempList[11], feelsLike: feelsLikeList[11], humidity: humidityList[11],
                         minTemp: minTempList[11], maxTemp: maxTempList[11], condition: conditionList[11] )
                 );
-              final markerMapo = NMarker(id: 'mapo', position: NLatLng(37.5593, 126.9083)) // 마포
+              final logoMapo = getImage(conditionList[12]);
+              final markerMapo = NMarker(id: 'mapo', position: NLatLng(37.5593, 126.9083), icon:logoMapo) // 마포
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -254,7 +266,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "마포구", temp: tempList[12], feelsLike: feelsLikeList[12], humidity: humidityList[12],
                         minTemp: minTempList[12], maxTemp: maxTempList[12], condition: conditionList[12] )
                 );
-              final markerSeodaemun = NMarker(id: 'seodaemun', position: NLatLng(37.5778, 126.9391)) // 서대문
+              final logoSeodaemun = getImage(conditionList[13]);
+              final markerSeodaemun = NMarker(id: 'seodaemun', position: NLatLng(37.5778, 126.9391), icon: logoSeodaemun) // 서대문
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -263,7 +276,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "서대문구", temp: tempList[13], feelsLike: feelsLikeList[13], humidity: humidityList[13],
                         minTemp: minTempList[13], maxTemp: maxTempList[13], condition: conditionList[13] )
                 );
-              final markerSeocho = NMarker(id: 'seocho', position: NLatLng(37.4733, 127.0312)) // 서초
+              final logoSeocho = getImage(conditionList[14]);
+              final markerSeocho = NMarker(id: 'seocho', position: NLatLng(37.4733, 127.0312), icon: logoSeocho) // 서초
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -272,7 +286,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "서초구", temp: tempList[14], feelsLike: feelsLikeList[14], humidity: humidityList[14],
                         minTemp: minTempList[14], maxTemp: maxTempList[14], condition: conditionList[14] )
                 );
-              final markerSeongdong = NMarker(id: 'seongdong', position: NLatLng(37.5510, 127.0410)) // 성동
+              final logoSeongdong = getImage(conditionList[15]);
+              final markerSeongdong = NMarker(id: 'seongdong', position: NLatLng(37.5510, 127.0410), icon: logoSeongdong) // 성동
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -281,7 +296,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "성동구", temp: tempList[15], feelsLike: feelsLikeList[15], humidity: humidityList[15],
                         minTemp: minTempList[15], maxTemp: maxTempList[15], condition: conditionList[15] )
                 );
-              final markerSeongbuk = NMarker(id: 'seongbuk', position: NLatLng(37.6057, 127.0176)) // 성북
+              final logoSeongbuk = getImage(conditionList[16]);
+              final markerSeongbuk = NMarker(id: 'seongbuk', position: NLatLng(37.6057, 127.0176), icon: logoSeongbuk) // 성북
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -290,7 +306,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "성북구", temp: tempList[16], feelsLike: feelsLikeList[16], humidity: humidityList[16],
                         minTemp: minTempList[16], maxTemp: maxTempList[16], condition: conditionList[16] )
                 );
-              final markerSongpa = NMarker(id: 'songpa', position: NLatLng(37.5056, 127.1153)) // 송파
+              final logoSongpa =getImage(conditionList[17]);
+              final markerSongpa = NMarker(id: 'songpa', position: NLatLng(37.5056, 127.1153), icon: logoSongpa) // 송파
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -299,7 +316,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "송파구", temp: tempList[17], feelsLike: feelsLikeList[17], humidity: humidityList[17],
                         minTemp: minTempList[17], maxTemp: maxTempList[17], condition: conditionList[17] )
                 );
-              final markerYangcheon = NMarker(id: 'yangcheon', position: NLatLng(37.5247, 126.8554)) // 양천
+              final logoYangcheon = getImage(conditionList[18]);
+              final markerYangcheon = NMarker(id: 'yangcheon', position: NLatLng(37.5247, 126.8554), icon: logoYangcheon) // 양천
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -308,7 +326,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "양천구", temp: tempList[18], feelsLike: feelsLikeList[18], humidity: humidityList[18],
                         minTemp: minTempList[18], maxTemp: maxTempList[18], condition: conditionList[18] )
                 );
-              final markerYeongdeungpo = NMarker(id: 'yeongdeungpo', position: NLatLng(37.5223, 126.9102)) // 영등포
+              final logoYeongdeungpo = getImage(conditionList[19]);
+              final markerYeongdeungpo = NMarker(id: 'yeongdeungpo', position: NLatLng(37.5223, 126.9102), icon: logoYeongdeungpo) // 영등포
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -317,7 +336,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "영등포구", temp: tempList[19], feelsLike: feelsLikeList[19], humidity: humidityList[19],
                         minTemp: minTempList[19], maxTemp: maxTempList[19], condition: conditionList[19] )
                 );
-              final markerYongsan = NMarker(id: 'yongsan', position: NLatLng(37.5314, 126.9799)) // 용산
+              final logoYongsan = getImage(conditionList[20]);
+              final markerYongsan = NMarker(id: 'yongsan', position: NLatLng(37.5314, 126.9799), icon: logoYongsan) // 용산
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -326,7 +346,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "용산구", temp: tempList[20], feelsLike: feelsLikeList[20], humidity: humidityList[20],
                         minTemp: minTempList[20], maxTemp: maxTempList[20], condition: conditionList[20] )
                 );
-              final markerEunpyeong = NMarker(id: 'eunpyeong', position: NLatLng(37.6192, 126.9270)) // 은평
+              final logoEunpyeong = getImage(conditionList[21]);
+              final markerEunpyeong = NMarker(id: 'eunpyeong', position: NLatLng(37.6192, 126.9270), icon: logoEunpyeong) // 은평
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -335,7 +356,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "은평구", temp: tempList[21], feelsLike: feelsLikeList[21], humidity: humidityList[21],
                         minTemp: minTempList[21], maxTemp: maxTempList[21], condition: conditionList[21] )
                 );
-              final markerJongno = NMarker(id: 'jongno', position: NLatLng(37.5949, 126.9773)) // 종로
+              final logoJongno = getImage(conditionList[22]);
+              final markerJongno = NMarker(id: 'jongno', position: NLatLng(37.5949, 126.9773), icon: logoJongno) // 종로
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -344,7 +366,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "종로구", temp: tempList[22], feelsLike: feelsLikeList[22], humidity: humidityList[22],
                         minTemp: minTempList[22], maxTemp: maxTempList[22], condition: conditionList[22] )
                 );
-              final markerJung = NMarker(id: 'jung', position: NLatLng(37.5601, 126.9960)) // 중구
+              final logoJung = getImage(conditionList[23]);
+              final markerJung = NMarker(id: 'jung', position: NLatLng(37.5601, 126.9960), icon:logoJung) // 중구
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -353,7 +376,8 @@ class _NaverMapAppState extends State<NaverMapApp> {
                     myBottom(cityName: "중구", temp: tempList[23], feelsLike: feelsLikeList[23], humidity: humidityList[23],
                         minTemp: minTempList[23], maxTemp: maxTempList[23], condition: conditionList[23] )
                 );
-              final markerJungrang = NMarker(id: 'jungrang', position: NLatLng(37.5978, 127.0929)) // 중랑
+              final logoJungrang = getImage(conditionList[24]);
+              final markerJungrang = NMarker(id: 'jungrang', position: NLatLng(37.5978, 127.0929), icon: logoJungrang) // 중랑
                 ..setMinZoom(10)
                 ..setMaxZoom(13)
                 ..setIsMinZoomInclusive(false)
@@ -668,7 +692,7 @@ class _NaverMapAppState extends State<NaverMapApp> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(15.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [

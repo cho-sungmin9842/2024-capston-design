@@ -93,6 +93,9 @@ class backStyle extends TitleStyle {
   @override
   // TODO: implement color
   Color? get color => Colors.black;
+  @override
+  // TODO: implement fontSize
+  double? get fontSize => 20;
 }
 class TempStyle extends TitleStyle {
   @override

@@ -119,6 +119,7 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
     return (kelvin - 273.15).round();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(children: [
@@ -134,6 +135,10 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
             opacity: _animation,
             child: Column(
               children: <Widget>[
+                Container(
+                  margin: EdgeInsets.all(10),
+                  child: Text("단기 예보", style: TitleStyle(),),
+                ),
                 Container(
                   margin: EdgeInsets.all(10),
                   decoration: BoxDecoration(
@@ -164,6 +169,10 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
                 ),
                 Container(
                   margin: EdgeInsets.all(10),
+                  child: Text("주간 날씨", style: TitleStyle(),),
+                ),
+                Container(
+                  margin: EdgeInsets.all(10),
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20), // Rounded corners
                     color: Colors.black.withOpacity(0.2),
@@ -181,7 +190,7 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
                             children: [
                               SizedBox(width: 10),
                               Container(
-                                width: 95,
+                                width: 100,
                                 height: 38,
                                 alignment: Alignment.centerLeft,
                                 child: Text(
@@ -200,11 +209,19 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
                               Container(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "${mornTempList[0]}°/${eveTempList[0]}°",
-                                  style: SubStyle(),
+                                  "${mornTempList[0]}°",
+                                  style: MinTempStyle(),
                                 ),
                               ),
-                              SizedBox(width: 10),
+                              Text(" / ", style: SubStyle(),),
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "${eveTempList[0]}°",
+                                  style: MaxTempStyle(),
+                                ),
+                              ),
+                              // SizedBox(width: 10),
                             ]),
                       ),
                       //SizedBox(height: 10),
@@ -219,7 +236,7 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
                             children: [
                               SizedBox(width: 10),
                               Container(
-                                width: 95, // Specify the width
+                                width: 100, // Specify the width
                                 height: 38, // Specify the height
                                 alignment: Alignment.centerLeft,
                                 child: Text(
@@ -238,11 +255,19 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
                               Container(
                                 alignment: Alignment.center,
                                 child: Text(
-                                  "${mornTempList[1]}°/${eveTempList[1]}°",
-                                  style: Title54Style(),
+                                  "${mornTempList[1]}°",
+                                  style: MinTempStyle(),
                                 ),
                               ),
-                              SizedBox(width: 10),
+                              Text(" / ", style: SubStyle(),),
+                              Container(
+                                alignment: Alignment.center,
+                                child: Text(
+                                  "${eveTempList[1]}°",
+                                  style: MaxTempStyle(),
+                                ),
+                              ),
+                              //SizedBox(width: 10,),
                             ]),
                       ),
                       //SizedBox(height: 20),
@@ -256,7 +281,7 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
                         child: Row(children: [
                           SizedBox(width: 10),
                           Container(
-                            width: 95, // Specify the width
+                            width: 100, // Specify the width
                             height: 38, // Specify the height
                             alignment: Alignment.centerLeft,
                             child: Text(
@@ -264,7 +289,7 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
                                 style: Title54Style()
                             ),
                           ),
-                          SizedBox(width: 10),
+                          SizedBox(width: 10,),
                           Container(
                             alignment: Alignment.center,
                             child: icon[2],
@@ -275,11 +300,19 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
                           Container(
                             alignment: Alignment.center,
                             child: Text(
-                              "${mornTempList[2]}°/${eveTempList[2]}°",
-                              style: Title54Style(),
+                              "${mornTempList[2]}°",
+                              style: MinTempStyle(),
                             ),
                           ),
-                          SizedBox(width: 10),
+                          Text(" / ", style: SubStyle(),),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "${eveTempList[2]}°",
+                              style: MaxTempStyle(),
+                            ),
+                          ),
+                          // SizedBox(width: 10),
                         ]),
                       ),
                       //SizedBox(height: 20),
@@ -293,7 +326,7 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
                         child: Row(children: [
                           SizedBox(width: 10),
                           Container(
-                            width: 95, // Specify the width
+                            width: 100, // Specify the width
                             height: 38, // Specify the height
                             alignment: Alignment.centerLeft,
                             child: Text(
@@ -312,11 +345,19 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
                           Container(
                             alignment: Alignment.center,
                             child: Text(
-                              "${mornTempList[3]}°/${eveTempList[3]}°",
-                              style: Title54Style(),
+                              "${mornTempList[3]}°",
+                              style: MinTempStyle(),
                             ),
                           ),
-                          SizedBox(width: 10),
+                          Text(" / ", style: SubStyle(),),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "${eveTempList[3]}°",
+                              style: MaxTempStyle(),
+                            ),
+                          ),
+                          // SizedBox(width: 10),
                         ]),
                       ),
                       //SizedBox(height: 20),
@@ -330,7 +371,7 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
                         child: Row(children: [
                           SizedBox(width: 10),
                           Container(
-                            width: 95, // Specify the width
+                            width: 100, // Specify the width
                             height: 38, // Specify the height
                             alignment: Alignment.centerLeft,
                             child: Text(
@@ -349,11 +390,19 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
                           Container(
                             alignment: Alignment.center,
                             child: Text(
-                                "${mornTempList[4]}°/${eveTempList[4]}°",
-                                style: Title54Style()
+                              "${mornTempList[4]}°",
+                              style: MinTempStyle(),
                             ),
                           ),
-                          SizedBox(width: 10),
+                          Text(" / ", style: SubStyle(),),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "${eveTempList[4]}°",
+                              style: MaxTempStyle(),
+                            ),
+                          ),
+                          // SizedBox(width: 10),
                         ]),
                       ),
                       //SizedBox(height: 20),
@@ -386,11 +435,19 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
                           Container(
                             alignment: Alignment.center,
                             child: Text(
-                              "${mornTempList[5]}°/${eveTempList[5]}°",
-                              style: Title54Style(),
+                              "${mornTempList[5]}°",
+                              style: MinTempStyle(),
                             ),
                           ),
-                          SizedBox(width: 10),
+                          Text(" / ", style: SubStyle(),),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "${eveTempList[5]}°",
+                              style: MaxTempStyle(),
+                            ),
+                          ),
+                          // SizedBox(width: 10),
                         ]),
                       ),
                       //SizedBox(height: 20),
@@ -423,11 +480,19 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
                           Container(
                             alignment: Alignment.center,
                             child: Text(
-                              "${mornTempList[6]}°/${eveTempList[6]}°",
-                              style: Title54Style(),
+                              "${mornTempList[6]}°",
+                              style: MinTempStyle(),
                             ),
                           ),
-                          SizedBox(width: 10),
+                          Text(" / ", style: SubStyle(),),
+                          Container(
+                            alignment: Alignment.center,
+                            child: Text(
+                              "${eveTempList[6]}°",
+                              style: MaxTempStyle(),
+                            ),
+                          ),
+                          // SizedBox(width: 10),
                         ]),
                       ),
                       SizedBox(height: 20),

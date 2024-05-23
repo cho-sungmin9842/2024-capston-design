@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter_naver_map/flutter_naver_map.dart';
+import 'package:hansungcapstone_bugiweather/NaverMap/font.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/main.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -133,8 +134,9 @@ class _LoadingState extends State<LoadingMap> {
             ),
             child: Center(
               child: ElevatedButton(
+
                 onPressed: (){},
-                child: Text('위치 정보를 가져오는 중입니다...'),
+                child: Text('위치 정보를 가져오는 중입니다...', style: backStyle(),),
               ),
             ),
           ),

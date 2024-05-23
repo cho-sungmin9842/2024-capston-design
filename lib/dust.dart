@@ -90,7 +90,7 @@ class _DustScreenState extends State<DustScreen>
                         double.parse(widget
                             .airConditionData['response']
                         ['body']['items'][0]['pm25Value']) <=
-                            35.0) ? const Icon(Icons.mood_outlined, size: 50)
+                            35.0) ? const Icon(Icons.mood_outlined, size: 50, color: Colors.white,)
                         : (double.parse(widget.airConditionData['response']
                     ['body']['items'][0]['pm25Value']) >=
                         36.0 &&
@@ -98,9 +98,9 @@ class _DustScreenState extends State<DustScreen>
                             .airConditionData['response']
                         ['body']['items'][0]['pm25Value']) <=
                             75.0)
-                        ? const Icon(Icons.mood_bad, size: 50)
+                        ? const Icon(Icons.mood_bad, size: 50, color: Colors.white,)
                         : const Icon(
-                        Icons.mood_bad, size: 50),
+                        Icons.mood_bad, size: 50, color: Colors.white,),
                     (double.parse(widget
                         .airConditionData['response']
                     ['body']['items'][0]['pm25Value']) >=
@@ -117,8 +117,8 @@ class _DustScreenState extends State<DustScreen>
                         double.parse(widget
                             .airConditionData['response']
                         ['body']['items'][0]['pm25Value']) <=
-                            35.0) ? const Text(
-                        '보통', style: TextStyle(fontSize: 30))
+                            35.0) ? Text(
+                        '보통', style: TitleStyle())
                         : (double.parse(widget.airConditionData['response']
                     ['body']['items'][0]['pm25Value']) >=
                         36.0 &&
@@ -126,8 +126,8 @@ class _DustScreenState extends State<DustScreen>
                             .airConditionData['response']
                         ['body']['items'][0]['pm25Value']) <=
                             75.0)
-                        ? const Text('나쁨', style: TextStyle(fontSize: 30))
-                        : const Text('매우 나쁨', style: TextStyle(fontSize: 30))
+                        ? Text('나쁨', style: TitleStyle())
+                        : Text('매우 나쁨', style: TitleStyle())
                   ],
                 ),
                 Column(

@@ -213,7 +213,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen>
                           ),
                           // 현재 기온
                           Text(
-                            "${widget.currentWeatherData['response']['body']['items']['item'][3]['obsrValue']}°C",
+                            "${widget.currentWeatherData['response']['body']['items']['item'][3]['obsrValue']}°",
                             textAlign: TextAlign.start,
                             overflow: TextOverflow.clip,
                             style: TempStyle(),
@@ -225,7 +225,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen>
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                "${widget.todayTMN2}°C",
+                                "${widget.todayTMN2}°",
                                 textAlign: TextAlign.start,
                                 overflow: TextOverflow.clip,
                                 style: MinTempStyle(),
@@ -239,7 +239,7 @@ class HSTodayWeatherState extends State<HSTodayWeatherScreen>
                                     fontSize: 26, color: Colors.white54),
                               ),
                               Text(
-                                "${widget.todayTMX2}°C",
+                                "${widget.todayTMX2}°",
                                 textAlign: TextAlign.start,
                                 overflow: TextOverflow.clip,
                                 style: MaxTempStyle(),
@@ -434,7 +434,7 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
                 ),
                 // 시간별 기온
                 Text(
-                  "$tmp°C",
+                  "$tmp°",
                   textAlign: TextAlign.start,
                   overflow: TextOverflow.clip,
                   style: TextStyle(
@@ -485,7 +485,7 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
                             fontStyle: FontStyle.normal,
                             fontSize: 18,
                             fontFamily: 'NanumSquareRoundB',
-                            color: Color(0xff000000),
+                            color: Colors.white,
                             shadows: [myShadow()]),
                       )
                     : Text(
@@ -496,7 +496,7 @@ List<Widget> getListViewItem(dynamic currenthstodayData) {
                           fontWeight: FontWeight.w400,
                           fontStyle: FontStyle.normal,
                           fontSize: 18,
-                          color: Color(0xff000000),
+                          color: Colors.white,
                         ),
                       ),
               ],
