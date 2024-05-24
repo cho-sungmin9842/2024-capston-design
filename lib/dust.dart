@@ -82,7 +82,7 @@ class _DustScreenState extends State<DustScreen>
                         ['body']['items'][0]['pm25Value']) <=
                             15.0)
                         ? const Icon(
-                      Icons.mood_outlined, size: 50, color: Colors.white,)
+                      Icons.mood_outlined, size: 50, color: Colors.blue,)
                         : (double.parse(widget
                         .airConditionData['response']
                     ['body']['items'][0]['pm25Value']) >=
@@ -90,7 +90,8 @@ class _DustScreenState extends State<DustScreen>
                         double.parse(widget
                             .airConditionData['response']
                         ['body']['items'][0]['pm25Value']) <=
-                            35.0) ? const Icon(Icons.mood_outlined, size: 50, color: Colors.white,)
+                            35.0) ? const Icon(
+                      Icons.mood_outlined, size: 50, color: Colors.green,)
                         : (double.parse(widget.airConditionData['response']
                     ['body']['items'][0]['pm25Value']) >=
                         36.0 &&
@@ -98,9 +99,10 @@ class _DustScreenState extends State<DustScreen>
                             .airConditionData['response']
                         ['body']['items'][0]['pm25Value']) <=
                             75.0)
-                        ? const Icon(Icons.mood_bad, size: 50, color: Colors.white,)
+                        ? const Icon(
+                      Icons.mood_bad, size: 50, color: Colors.orange,)
                         : const Icon(
-                        Icons.mood_bad, size: 50, color: Colors.white,),
+                      Icons.mood_bad, size: 50, color: Colors.red,),
                     (double.parse(widget
                         .airConditionData['response']
                     ['body']['items'][0]['pm25Value']) >=
@@ -109,7 +111,12 @@ class _DustScreenState extends State<DustScreen>
                             .airConditionData['response']
                         ['body']['items'][0]['pm25Value']) <=
                             15.0)
-                        ? Text('좋음', style: TitleStyle())
+                        ? Text('좋음',
+                      style: TextStyle(color: Colors.blue,
+                        fontSize: 32,
+                        fontFamily: 'NanumSquareRoundB',
+                      ),
+                    )
                         : (double.parse(widget
                         .airConditionData['response']
                     ['body']['items'][0]['pm25Value']) >=
@@ -118,7 +125,11 @@ class _DustScreenState extends State<DustScreen>
                             .airConditionData['response']
                         ['body']['items'][0]['pm25Value']) <=
                             35.0) ? Text(
-                        '보통', style: TitleStyle())
+                      '보통', style: TextStyle(color: Colors.green,
+                      fontSize: 32,
+                      fontFamily: 'NanumSquareRoundB',
+                    ),
+                    )
                         : (double.parse(widget.airConditionData['response']
                     ['body']['items'][0]['pm25Value']) >=
                         36.0 &&
@@ -126,8 +137,18 @@ class _DustScreenState extends State<DustScreen>
                             .airConditionData['response']
                         ['body']['items'][0]['pm25Value']) <=
                             75.0)
-                        ? Text('나쁨', style: TitleStyle())
-                        : Text('매우 나쁨', style: TitleStyle())
+                        ? Text('나쁨',
+                      style: TextStyle(color: Colors.orange,
+                        fontSize: 32,
+                        fontFamily: 'NanumSquareRoundB',
+                      ),
+                    )
+                        : Text('매우 나쁨',
+                      style: TextStyle(color: Colors.red,
+                        fontSize: 32,
+                        fontFamily: 'NanumSquareRoundB',
+                      ),
+                    )
                   ],
                 ),
                 Column(
@@ -221,7 +242,7 @@ class _DustScreenState extends State<DustScreen>
                                     value: double.parse(widget
                                         .airConditionData['response']
                                     ['body']['items'][0]['pm10Value']) / 151.0,
-                                    backgroundColor: Colors.grey,
+                                    backgroundColor: Colors.white70,
                                     valueColor: AlwaysStoppedAnimation<Color>(
                                         Colors.green),
                                   ),
@@ -238,7 +259,7 @@ class _DustScreenState extends State<DustScreen>
                                     value: double.parse(widget
                                         .airConditionData['response']
                                     ['body']['items'][0]['pm10Value']) / 151.0,
-                                    backgroundColor: Colors.grey,
+                                    backgroundColor: Colors.white70,
                                     valueColor: AlwaysStoppedAnimation<Color>(
                                         Colors.orange),
                                   ),
@@ -248,7 +269,7 @@ class _DustScreenState extends State<DustScreen>
                                     value: double.parse(widget
                                         .airConditionData['response']
                                     ['body']['items'][0]['pm10Value']) / 151.0,
-                                    backgroundColor: Colors.grey,
+                                    backgroundColor: Colors.white70,
                                     valueColor: AlwaysStoppedAnimation<Color>(
                                         Colors.red),
                                   ),
@@ -258,11 +279,11 @@ class _DustScreenState extends State<DustScreen>
                                 width: 20,
                               ),
                               Container(
-                                width: 70,
+                                width: 75,
                                 alignment: Alignment.center,
                                 child: Text(widget.airConditionData['response']
                                 ['body']['items'][0]['pm10Value'],
-                                  style: TitleStyle(),
+                                  style: getDustStyleInt('pm10Value'),
                                 ),
                               ),
                               const SizedBox(
@@ -274,11 +295,13 @@ class _DustScreenState extends State<DustScreen>
                             height: 10,
                           ),
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               const SizedBox(
                                 width: 70,
                               ),
-                              Text('초미세먼지 (PM 2.5)', style: DateStyle(),),
+                              Text('초미세먼지 ', style: SubStyle(),),
+                              Text('(PM 2.5)', style: DateStyle(),),
                               const SizedBox(width: 10),
                             ],
                           ),
@@ -328,7 +351,7 @@ class _DustScreenState extends State<DustScreen>
                                     value: double.parse(widget
                                         .airConditionData['response']
                                     ['body']['items'][0]['pm25Value']) / 76.0,
-                                    backgroundColor: Colors.grey,
+                                    backgroundColor: Colors.white70,
                                     valueColor: AlwaysStoppedAnimation<Color>(
                                         Colors.green),
                                   ),
@@ -345,7 +368,7 @@ class _DustScreenState extends State<DustScreen>
                                     value: double.parse(widget
                                         .airConditionData['response']
                                     ['body']['items'][0]['pm25Value']) / 76.0,
-                                    backgroundColor: Colors.grey,
+                                    backgroundColor: Colors.white70,
                                     valueColor: AlwaysStoppedAnimation<Color>(
                                         Colors.orange),
                                   ),
@@ -355,7 +378,7 @@ class _DustScreenState extends State<DustScreen>
                                     value: double.parse(widget
                                         .airConditionData['response']
                                     ['body']['items'][0]['pm25Value']) / 76.0,
-                                    backgroundColor: Colors.grey,
+                                    backgroundColor: Colors.white70,
                                     valueColor: AlwaysStoppedAnimation<Color>(
                                         Colors.red),
                                   ),
@@ -364,11 +387,11 @@ class _DustScreenState extends State<DustScreen>
                               const SizedBox(
                                 width: 20,
                               ),
-                              Container(width: 70,
+                              Container(width: 75,
                                 alignment: Alignment.center,
                                 child: Text(widget.airConditionData['response']
                                 ['body']['items'][0]['pm25Value'],
-                                  style: TitleStyle(),
+                                  style: getDustStyleInt('pm25Value'),
                                 ),
                               ),
                               const SizedBox(
@@ -397,9 +420,9 @@ class _DustScreenState extends State<DustScreen>
                               const Image(
                                 // image: AssetImage("assets/o3.png"),
                                 image: AssetImage("assets/O3_3d.png"),
-                                color: Colors.white,
                                 width: 50.0,
                                 height: 50.0,
+                                color: Colors.white,
                               ),
                               const SizedBox(
                                 width: 10,
@@ -454,7 +477,7 @@ class _DustScreenState extends State<DustScreen>
                                     value: double.parse(widget
                                         .airConditionData['response']
                                     ['body']['items'][0]['o3Value']) / 0.151,
-                                    backgroundColor: Colors.grey,
+                                    backgroundColor: Colors.white70,
                                     valueColor: AlwaysStoppedAnimation<Color>(
                                         Colors.orange),
                                   ),
@@ -464,7 +487,7 @@ class _DustScreenState extends State<DustScreen>
                                     value: double.parse(widget
                                         .airConditionData['response']
                                     ['body']['items'][0]['o3Value']) / 0.151,
-                                    backgroundColor: Colors.grey,
+                                    backgroundColor: Colors.white70,
                                     valueColor: AlwaysStoppedAnimation<Color>(
                                         Colors.red),
                                   ),
@@ -474,11 +497,11 @@ class _DustScreenState extends State<DustScreen>
                                 width: 20,
                               ),
                               Container(
-                                width: 70,
+                                width: 75,
                                 alignment: Alignment.center,
                                 child: Text(widget.airConditionData['response']
                                 ['body']['items'][0]['o3Value'],
-                                  style: SubStyle(),
+                                  style: getDustStyleDouble('o3Value'),
                                 ),
                               ),
                               const SizedBox(
@@ -507,9 +530,9 @@ class _DustScreenState extends State<DustScreen>
                               const Image(
                                 // image: AssetImage("assets/no2.png"),
                                 image: AssetImage("assets/NO2_3d.png"),
-                                color: Colors.white,
                                 width: 50.0,
                                 height: 50.0,
+                                color: Colors.white,
                               ),
                               const SizedBox(
                                 width: 10,
@@ -584,10 +607,11 @@ class _DustScreenState extends State<DustScreen>
                                 width: 20,
                               ),
                               Container(
-                                width: 70,
+                                width: 75,
+                                alignment: Alignment.center,
                                 child: Text(widget.airConditionData['response']
                                 ['body']['items'][0]['no2Value'],
-                                  style: SubStyle(),
+                                  style: getDustStyleDouble("no2Value"),
                                 ),
                               ),
                               const SizedBox(
@@ -616,9 +640,9 @@ class _DustScreenState extends State<DustScreen>
                               const Image(
                                 // image: AssetImage("assets/co.png"),
                                 image: AssetImage("assets/CO_3d.png"),
-                                color: Colors.white,
                                 width: 50.0,
                                 height: 50.0,
+                                color: Colors.white,
                               ),
                               const SizedBox(
                                 width: 10,
@@ -661,7 +685,7 @@ class _DustScreenState extends State<DustScreen>
                                             .airConditionData['response']
                                         ['body']['items'][0]['coValue']) /
                                             15.01,
-                                        backgroundColor: Colors.grey,
+                                        backgroundColor: Colors.white,
                                         valueColor: AlwaysStoppedAnimation<
                                             Color>(
                                             Colors.green),
@@ -680,7 +704,7 @@ class _DustScreenState extends State<DustScreen>
                                             .airConditionData['response']
                                         ['body']['items'][0]['coValue']) /
                                             15.01,
-                                        backgroundColor: Colors.grey,
+                                        backgroundColor: Colors.white70,
                                         valueColor: AlwaysStoppedAnimation<
                                             Color>(
                                             Colors.orange),
@@ -692,7 +716,7 @@ class _DustScreenState extends State<DustScreen>
                                             .airConditionData['response']
                                         ['body']['items'][0]['coValue']) /
                                             15.01,
-                                        backgroundColor: Colors.grey,
+                                        backgroundColor: Colors.white70,
                                         valueColor: AlwaysStoppedAnimation<
                                             Color>(
                                             Colors.red),
@@ -705,11 +729,11 @@ class _DustScreenState extends State<DustScreen>
                                 width: 20,
                               ),
                               Container(
-                                width: 70,
+                                width: 75,
                                 alignment: Alignment.center,
                                 child: Text(widget.airConditionData['response']
                                 ['body']['items'][0]['coValue'],
-                                  style: SubStyle(),
+                                  style: getDustStyleDouble('coValue'),
                                 ),
                               ),
                               const SizedBox(
@@ -738,9 +762,9 @@ class _DustScreenState extends State<DustScreen>
                               const Image(
                                 // image: AssetImage("assets/so2.png"),
                                 image: AssetImage("assets/SO2_3d.png"),
-                                color: Colors.white,
                                 width: 50.0,
                                 height: 50.0,
+                                color: Colors.white,
                               ),
                               const SizedBox(
                                 width: 10,
@@ -826,10 +850,11 @@ class _DustScreenState extends State<DustScreen>
                                 width: 20,
                               ),
                               Container(
-                                width: 70,
+                                width: 75,
+                                alignment: Alignment.center,
                                 child: Text(widget.airConditionData['response']
                                 ['body']['items'][0]['so2Value'],
-                                  style: SubStyle(),
+                                  style: getDustStyleDouble('so2Value'),
                                 ),
                               ),
                               const SizedBox(
@@ -842,6 +867,9 @@ class _DustScreenState extends State<DustScreen>
                           ),
                           Row(
                             children: [
+                              const SizedBox(
+                                width: 10,
+                              ),
                               Container(
                                 width: 20, // 원의 너비
                                 height: 20, // 원의 높이
@@ -928,5 +956,63 @@ class _DustScreenState extends State<DustScreen>
         ),
       ),
     );
+  }
+
+  getDustStyleInt(String dustType) {
+    int airCondition = int.parse(
+        widget.airConditionData['response']['body']['items'][0][dustType]);
+    if (dustType == 'pm10Value') {
+      if (airCondition <= 30) {
+        return DustStyleBlue();
+      }
+      else {
+        return DustStyleGreen();
+      }
+    }
+    else if (dustType == 'pm25Value') {
+      if (airCondition <= 15) {
+        return DustStyleBlue();
+      }
+      else {
+        return DustStyleGreen();
+      }
+    }
+  }
+
+  getDustStyleDouble(String dustType) {
+    double airCondition = double.parse(
+        widget.airConditionData['response']['body']['items'][0][dustType]);
+    if (dustType == 'o3Value') {
+      if (airCondition <= 0.03) {
+        return DustStyleBlue();
+      }
+      else {
+        return DustStyleGreen();
+      }
+    }
+    else if (dustType == 'no2Value') {
+      if (airCondition <= 0.03) {
+        return DustStyleBlue();
+      }
+      else {
+        return DustStyleGreen();
+      }
+    }
+    else if (dustType == 'coValue') {
+      if (airCondition <= 2) {
+        return DustStyleBlue();
+      }
+      else {
+        return DustStyleGreen();
+      }
+    }
+    else if (dustType == 'so2Value') {
+      if (airCondition <= 0.02) {
+        return DustStyleBlue();
+      }
+      else {
+        return DustStyleGreen();
+      }
+    }
   }
 }
