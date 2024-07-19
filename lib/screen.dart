@@ -9,13 +9,11 @@ import 'package:hansungcapstone_bugiweather/setting.dart';
 import 'package:hansungcapstone_bugiweather/weekscreen.dart';
 import 'package:intl/intl.dart';
 import 'NaverMap/mylocation.dart';
-import 'Search/loading_screen.dart';
 import 'dust.dart';
 import 'hstodayweatherscreen.dart';
 import 'httpnetwork.dart';
 import 'loading.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/screens/loading.dart';
-import 'package:hansungcapstone_bugiweather/week_weather.dart';
 import 'package:http/http.dart' as http;
 
 final String apiKey = dotenv.get("apiKey");
@@ -99,12 +97,6 @@ class HomeScreenState extends State<HomeScreen> {
       ),
       getHSTodayWeatherScreen(),
       LoadingMap(),
-      // Favorites(),
-      LocationScreen(
-        locationForecast: widget.locationForecast,
-        locationWeather: widget.locationWeather,
-        skyStateCode: skyState,
-      ),
     ];
   }
 
@@ -377,10 +369,6 @@ class HomeScreenState extends State<HomeScreen> {
           const BottomNavigationBarItem(
             icon: Icon(Icons.map),
             label: '전국 날씨',
-          ),
-          const BottomNavigationBarItem(
-            icon: Icon(Icons.pin_drop_outlined),
-            label: '위치검색',
           ),
           const BottomNavigationBarItem(
             icon: Icon(Icons.cloud),

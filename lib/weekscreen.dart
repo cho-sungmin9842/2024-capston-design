@@ -137,7 +137,7 @@ class _backscreen extends State<weekScreen> with SingleTickerProviderStateMixin 
               children: <Widget>[
                 Container(
                   margin: EdgeInsets.all(10),
-                  child: Text("단기 예보", style: TitleStyle(),),
+                  child: Text("주간 예보", style: TitleStyle(),),
                 ),
                 Container(
                   margin: EdgeInsets.all(10),
