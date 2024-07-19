@@ -8,7 +8,6 @@ import 'package:hansungcapstone_bugiweather/screen.dart';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
 import 'NaverMap/mylocation.dart';
-import 'Search/weather.dart';
 import 'httpnetwork.dart';
 import 'network.dart';
 
@@ -183,8 +182,6 @@ class _AppLoadingState extends State<AppLoading> {
     //
     final data = await getJsonData();
     final dailyForecasts = data['daily'] as List<dynamic>;
-    var weatherData = await WeatherModel().getLocationWeather();
-    var forecastData = await WeatherModel().getLocationForecast();
 
     final Text = await fetchWeatherForecast3();
     final dailyForecastText = Text['response']['body']['items']['item'][0]['wfSv'];
@@ -206,8 +203,6 @@ class _AppLoadingState extends State<AppLoading> {
             hssuperShortWeatherData: hssuperShortWeatherData,
             dailyWeather: dailyForecasts,
             dailyForecastText: dailyForecastText,
-            locationWeather: weatherData,
-            locationForecast: forecastData,
           );
         },
       ),
