@@ -10,12 +10,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/font.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/screens/weatherIcon.dart';
 import 'package:http/http.dart';
-const apiKey = '***REMOVED_OWM_KEY***';
+final apiKey = dotenv.get("openweather_api_key");
 
 class NaverMapApp extends StatefulWidget {
   const NaverMapApp({Key? key, required this.parseWeatherData});

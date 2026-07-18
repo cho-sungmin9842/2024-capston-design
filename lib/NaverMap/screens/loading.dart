@@ -1,5 +1,6 @@
 import 'dart:developer';
 
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_naver_map/flutter_naver_map.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/font.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/main.dart';
@@ -11,7 +12,7 @@ import 'package:hansungcapstone_bugiweather/NaverMap/network.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/main.dart';
 import 'package:hansungcapstone_bugiweather/NaverMap/NaverMapApp.dart';
 
-const apiKey = '***REMOVED_OWM_KEY***';
+final apiKey = dotenv.get("openweather_api_key");
 
 
 
@@ -161,7 +162,7 @@ class _LoadingState extends State<LoadingMap> {
 Future<void> _initialize() async {
   WidgetsFlutterBinding.ensureInitialized();
   await NaverMapSdk.instance.initialize(
-      clientId: '***REMOVED_NAVER_CLIENT_ID***',     // 클라이언트 ID 설정
+      clientId: dotenv.get("naver_client_id"),     // 클라이언트 ID 설정
       onAuthFailed: (e) => log("네이버맵 인증오류 : $e", name: "onAuthFailed")
   );
 }

@@ -1,8 +1,9 @@
 import 'dart:convert';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:http/http.dart' as http;
 import 'NaverMap/mylocation.dart';
 
-const String apiKey = '***REMOVED_OWM_KEY***';
+final String apiKey = dotenv.get("openweather_api_key");
 const String baseUrl = 'https://api.openweathermap.org/data/3.0/onecall';
 
 Future<dynamic> getJsonData() async {
@@ -52,7 +53,8 @@ Future<dynamic> fetchWeatherForecast3() async {
     hour = '06';
   }
 
-  final url = 'http://apis.data.go.kr/1360000/MidFcstInfoService/getMidFcst?serviceKey=***REMOVED_OWM_KEY***&numOfRows=10'
+  final midFcstApiKey = dotenv.get("mid_fcst_api_key");
+  final url = 'http://apis.data.go.kr/1360000/MidFcstInfoService/getMidFcst?serviceKey=$midFcstApiKey&numOfRows=10'
       '&pageNo=1&stnId=108&dataType=JSON&tmFc=$year$month$day$hour$minute';
   final response = await http.get(Uri.parse(url));
 
