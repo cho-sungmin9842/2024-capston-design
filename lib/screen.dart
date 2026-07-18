@@ -300,27 +300,31 @@ class HomeScreenState extends State<HomeScreen> {
     // 근접 측정소 목록 조회
     var closeObs =
         'https://apis.data.go.kr/B552584/MsrstnInfoInqireSvc/getNearbyMsrstnList?serviceKey=$apiKey&returnType=json&tmX=$tm_x&tmY=$tm_y&ver=1.1';
-    // 근접 측정소 rest api 응답 객체
-    http.Response responseObs = await http.get(Uri.parse(closeObs));
-    if (responseObs.statusCode == 200) {
-      // 응답 받은 데이터를 json 형태로 변환하여 저장
-      obsJson = jsonDecode(responseObs.body);
-      print(obsJson);
+    try {
+      // 근접 측정소 rest api 응답 객체
+      http.Response responseObs = await http.get(Uri.parse(closeObs));
+      if (responseObs.statusCode == 200) {
+        // 응답 받은 데이터를 json 형태로 변환하여 저장
+        obsJson = jsonDecode(responseObs.body);
+        print(obsJson);
+      }
+      obs = obsJson['response']['body']['items'][0]['stationName'];
+      print('측정소: $obs');
+      // 측정소별 실시간 측정정보 조회
+      String airConditon =
+          'https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=$obs&dataTerm=DAILY&pageNo=1&ver=1.0&numOfRows=1&returnType=json&serviceKey=$apiKey';
+
+      HttpNetwork network = HttpNetwork("", "", "", "", airConditon);
+
+      // 측정소별 실시간 측정 정보 조회 json 응답 데이터
+      var airConditionData = await network.getAirConditionData();
+      _widgetOptions.add(DustScreen(
+        airConditionData: airConditionData,
+        skyStateCode: skyState,
+      ));
+    } catch (e) {
+      print('대기질 정보 조회 실패: $e');
     }
-    obs = obsJson['response']['body']['items'][0]['stationName'];
-    print('측정소: $obs');
-    // 측정소별 실시간 측정정보 조회
-    String airConditon =
-        'https://apis.data.go.kr/B552584/ArpltnInforInqireSvc/getMsrstnAcctoRltmMesureDnsty?stationName=$obs&dataTerm=DAILY&pageNo=1&ver=1.0&numOfRows=1&returnType=json&serviceKey=$apiKey';
-
-    HttpNetwork network = HttpNetwork("", "", "", "", airConditon);
-
-    // 측정소별 실시간 측정 정보 조회 json 응답 데이터
-    var airConditionData = await network.getAirConditionData();
-    _widgetOptions.add(DustScreen(
-      airConditionData: airConditionData,
-      skyStateCode: skyState,
-    ));
   }
 
   @override

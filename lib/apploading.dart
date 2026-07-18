@@ -183,8 +183,13 @@ class _AppLoadingState extends State<AppLoading> {
     final data = await getJsonData();
     final dailyForecasts = data['daily'] as List<dynamic>;
 
-    final Text = await fetchWeatherForecast3();
-    final dailyForecastText = Text['response']['body']['items']['item'][0]['wfSv'];
+    dynamic dailyForecastText;
+    try {
+      final Text = await fetchWeatherForecast3();
+      dailyForecastText = Text['response']['body']['items']['item'][0]['wfSv'];
+    } catch (e) {
+      print('중기예보 조회 실패: $e');
+    }
 
     Navigator.push(
       context,
